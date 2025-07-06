@@ -1,9 +1,20 @@
-apply plugin: 'java'
-apply plugin: 'application'
-mainClassName = "MyFirstProgram"
+plugins {
+    // Плагин для настройки основных настроек приложения
+    id 'application'
+    
+    // Плагин для библиотек Java, добавляет поддержку стандартных соглашений и задач
+    id 'java-library'
+}
+
+// Настройка имени и главного класса приложения
+application {
+    mainClass.set("somePackage.MyFirstProgram")
+}
+
 repositories {
   mavenCentral()
 }
+
 dependencies {
 	implementation group: 'org.testng', name: 'testng', version: '7.11.0'
 }
