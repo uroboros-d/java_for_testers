@@ -1,7 +1,11 @@
 package somePackage;
 
+import org.testng.annotations.Test;
+
 public class SquareTests {
+    @Test
     public void testArea() {
-        Square s = new Square(5);
+        Square square = new Square(5);
+        assert square.area() == 25;   // не путать == (сравнение) с = (присваивание)
     }
 }
