@@ -8,11 +8,9 @@ public record Rectangle(double sideOne, double sideTwo) {
                 this.sideOne, this.sideTwo, this.getArea());
         System.out.println(text);
     }
-
     public double getArea() {
         return this.sideOne * this.sideTwo;
     }
-
     public double getPerimeter() {
         return this.sideOne * 2 + this.sideTwo * 2;
     }

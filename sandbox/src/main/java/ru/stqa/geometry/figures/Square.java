@@ -6,11 +6,9 @@ public record Square(double side) {
         String text = String.format("Площадь квадрата со стороной %f = %f", this.side, this.getArea());
         System.out.println(text);
     }
-
     public double getArea() {
         return this.side * this.side;
     }
-
     public double getPerimeter() {
         return this.side * 4;
     }
