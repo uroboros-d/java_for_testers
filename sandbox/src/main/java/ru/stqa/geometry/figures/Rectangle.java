@@ -14,12 +14,10 @@ public class Rectangle {
 
         String text = String.format("Площадь прямоугольника со сторонами %f и %f = %f",
                 this.sideOne, this.sideTwo, this.getArea());
-
         System.out.println(text);
     }
 
     public double getArea() {
-
         return this.sideOne * this.sideTwo;
     }
 }
