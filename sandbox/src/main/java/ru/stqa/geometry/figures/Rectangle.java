@@ -1,14 +1,6 @@
 package ru.stqa.geometry.figures;
 
-public class Rectangle {
-
-    double sideOne;
-    double sideTwo;
-
-    public Rectangle(double sideOne, double sideTwo) {
-        this.sideOne = sideOne;
-        this.sideTwo = sideTwo;
-    }
+public record Rectangle(double sideOne, double sideTwo) {
 
     public void printArea() {
 
@@ -19,5 +11,9 @@ public class Rectangle {
 
     public double getArea() {
         return this.sideOne * this.sideTwo;
+    }
+
+    public double getPerimeter() {
+        return this.sideOne * 2 + this.sideTwo * 2;
     }
 }
