@@ -20,33 +20,25 @@ public class SquareTests {
         Assertions.assertEquals(20., new Square(5.).getPerimeter());
     }
 
-    @Test
-        // тест для вычисления площади
-    void canCalculateRectangleArea() {
-        var rectangle = new Rectangle(5., 7);
-        var actResult = rectangle.getArea();
-        var expResult = 35.;
-        Assertions.assertEquals(expResult, actResult);
-    }
+
 
     @Test
-        // тест для вычисления периметра
-    void canCalculateRectanglePerimeter() {
-        Assertions.assertEquals(16., new Rectangle(5.,3).getPerimeter());
+        // тест для стороны квадрата = отрицательное число
+    void cannotCreateSquareWithNegativeSide(){
+        try {
+            new Square(-5);
+            // если мы прошли строку кода выше, значит поведение не соответствует ожидаемому (ожидается исключение) и
+            // тест должен упасть
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            // IllegalArgumentException удобный способ сообщить, что параметр ф-ции не считается валидным
+        }
     }
 
-    @Test
-        // тест для вычисления площади
-    void canCalculateTriangleArea() {
-        var triangle = new Triangle(3., 4, 5.0);
-        var actResult = triangle.getArea();
-        var expResult = 6.;
-        Assertions.assertEquals(expResult, actResult);
-    }
 
-    @Test
-        // тест для вычисления периметра
-    void canCalculateTrianglePerimeter() {
-        Assertions.assertEquals(12., new Triangle(3.,4, 5.0).getPerimeter());
-    }
+
+
+
+
+
 }
