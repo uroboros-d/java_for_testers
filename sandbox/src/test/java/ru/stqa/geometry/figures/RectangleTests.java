@@ -22,4 +22,19 @@ public class RectangleTests {
     void canCalculateRectanglePerimeter() {
         Assertions.assertEquals(16., new Rectangle(5.,3).getPerimeter());
     }
+
+    @Test
+        // тест для стороны прямоугольника = отрицательное число
+    void cannotCreateRectangleWithNegativeSide(){
+        try {
+            new Rectangle(-5, 4);
+            // если мы прошли строку кода выше, значит поведение не соответствует ожидаемому (ожидается исключение) и
+            // тест должен упасть
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            // IllegalArgumentException удобный способ сообщить, что параметр ф-ции не считается валидным
+        }
+    }
 }
+
+

@@ -1,9 +1,13 @@
 package ru.stqa.geometry.figures;
 
 public record Rectangle(double sideOne, double sideTwo) {
+    public Rectangle {
+        if(sideOne < 0||sideTwo < 0) {
+            throw new IllegalArgumentException("Rectangle side should be non-negative");
+        }
+    }
 
     public void printArea() {
-
         String text = String.format("Площадь прямоугольника со сторонами %f и %f = %f",
                 this.sideOne, this.sideTwo, this.getArea());
         System.out.println(text);
