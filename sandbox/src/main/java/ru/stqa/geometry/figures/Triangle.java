@@ -28,9 +28,18 @@ public record Triangle(double sideOne, double sideTwo, double sideThree) {
         Triangle triangle = (Triangle) o;
         return (Double.compare(this.sideOne, triangle.sideOne) == 0 && Double.compare(this.sideTwo, triangle.sideTwo) == 0 && Double.compare(this.sideThree, triangle.sideThree) == 0)
                 ||
+                // добавил условие ниже после неуспешной 1 попытки
+                (Double.compare(this.sideOne, triangle.sideOne) == 0 && Double.compare(this.sideTwo, triangle.sideThree) == 0 && Double.compare(this.sideThree, triangle.sideTwo) == 0)
+                ||
+                // добавил условие ниже после неуспешной 1 попытки
+                (Double.compare(this.sideOne, triangle.sideTwo) == 0 && Double.compare(this.sideTwo, triangle.sideOne) == 0 && Double.compare(this.sideThree, triangle.sideThree) == 0)
+                ||
                 (Double.compare(this.sideOne, triangle.sideTwo) == 0 && Double.compare(this.sideTwo, triangle.sideThree) == 0 && Double.compare(this.sideThree, triangle.sideOne) == 0)
                 ||
-                (Double.compare(this.sideOne, triangle.sideThree) == 0 && Double.compare(this.sideTwo, triangle.sideOne) == 0 && Double.compare(this.sideThree, triangle.sideTwo) == 0);
+                (Double.compare(this.sideOne, triangle.sideThree) == 0 && Double.compare(this.sideTwo, triangle.sideOne) == 0 && Double.compare(this.sideThree, triangle.sideTwo) == 0)
+                ||
+                // добавил условие ниже после неуспешной 1 попытки
+                (Double.compare(this.sideOne, triangle.sideThree) == 0 && Double.compare(this.sideTwo, triangle.sideTwo) == 0 && Double.compare(this.sideThree, triangle.sideOne) == 0);
     }
 
     @Override
