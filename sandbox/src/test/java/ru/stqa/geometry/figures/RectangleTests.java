@@ -35,6 +35,22 @@ public class RectangleTests {
             // IllegalArgumentException удобный способ сообщить, что параметр ф-ции не считается валидным
         }
     }
+
+    @Test
+        // тест сравнения 2 прямоугольников
+    void testEquality() {
+        var rectangleOne = new Rectangle(5,2);
+        var rectangleTwo = new Rectangle(5,2);
+        Assertions.assertEquals(rectangleOne, rectangleTwo);
+    }
+
+    @Test
+        // тест сравнения 2 прямоугольников
+    void testEqualityTwo() {
+        var rectangleOne = new Rectangle(5,2);
+        var rectangleTwo = new Rectangle(2,5);
+        Assertions.assertEquals(rectangleOne, rectangleTwo);
+    }
 }
 
 

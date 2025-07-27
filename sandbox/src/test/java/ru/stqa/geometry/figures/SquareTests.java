@@ -35,10 +35,28 @@ public class SquareTests {
         }
     }
 
+    @Test
+        // тест сравнения 2 квадратов
+    void testEquality() {
+        var squareOne = new Square(5);
+        var squareTwo = new Square(5);
+        Assertions.assertEquals(squareOne, squareTwo);
+    }
 
+    @Test
+        // тест сравнения 2 квадратов
+    void testNonEquality() {
+        var squareOne = new Square(5);
+        var squareTwo = new Square(4);
+        Assertions.assertNotEquals(squareOne, squareTwo);
+    }
 
-
-
-
+    @Test
+        // тест сравнения 2 квадратов
+    void testPass() {
+        var squareOne = new Square(5);
+        var squareTwo = new Square(5);
+        Assertions.assertTrue(squareOne.equals(squareTwo));
+    }
 
 }
