@@ -29,7 +29,6 @@ public class TriangleTests {
             // тест должен упасть
             Assertions.fail();
         } catch (IllegalArgumentException exception) {
-            // IllegalArgumentException удобный способ сообщить, что параметр ф-ции не считается валидным
             System.out.println("Тест выполняется успешно, при нарушении неравенства треугольника бросая исключение - выполняя блок catch");
         }
     }
@@ -43,7 +42,6 @@ public class TriangleTests {
             // тест должен упасть
             Assertions.fail();
         } catch (IllegalArgumentException exception) {
-            // IllegalArgumentException удобный способ сообщить, что параметр ф-ции не считается валидным
             System.out.println("Тест выполняется успешно, при нарушении неравенства треугольника бросая исключение - выполняя блок catch");
         }
     }
@@ -57,7 +55,6 @@ public class TriangleTests {
             // тест должен упасть
             Assertions.fail();
         } catch (IllegalArgumentException exception) {
-            // IllegalArgumentException удобный способ сообщить, что параметр ф-ции не считается валидным
             System.out.println("Тест выполняется успешно, при нарушении неравенства треугольника бросая исключение - выполняя блок catch");
         }
     }
@@ -71,7 +68,6 @@ public class TriangleTests {
             // тест должен упасть
             Assertions.fail();
         } catch (IllegalArgumentException exception) {
-            // IllegalArgumentException удобный способ сообщить, что параметр ф-ции не считается валидным
             System.out.println("Тест выполняется успешно, при отрицательном значении длины стороны бросая исключение - выполняя блок catch");
         }
     }
@@ -85,7 +81,6 @@ public class TriangleTests {
             // тест должен упасть
             Assertions.fail();
         } catch (IllegalArgumentException exception) {
-            // IllegalArgumentException удобный способ сообщить, что параметр ф-ции не считается валидным
             System.out.println("Тест выполняется успешно, при отрицательном значении длины стороны бросая исключение - выполняя блок catch");
         }
     }
@@ -99,7 +94,6 @@ public class TriangleTests {
             // тест должен упасть
             Assertions.fail();
         } catch (IllegalArgumentException exception) {
-            // IllegalArgumentException удобный способ сообщить, что параметр ф-ции не считается валидным
             System.out.println("Тест выполняется успешно, при отрицательном значении длины стороны бросая исключение - выполняя блок catch");
         }
     }
