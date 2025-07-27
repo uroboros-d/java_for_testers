@@ -1,2 +1,4 @@
 # java_for_testers
-Баранцев
+курс "Программирование на Java для тестировщиков"
+Алексей Баранцев
+https://software-testing.ru/

@@ -97,4 +97,15 @@ public class TriangleTests {
             System.out.println("Тест выполняется успешно, при отрицательном значении длины стороны бросая исключение - выполняя блок catch");
         }
     }
+
+    @Test
+        // тест сравнения треугольников
+    void testEquality() {
+        var triangleOne = new Triangle(3,4,5);
+        var triangleTwo = new Triangle(5,3,4);
+        var triangleThree = new Triangle(4,5,3);
+        Assertions.assertEquals(triangleOne, triangleTwo);
+        Assertions.assertEquals(triangleOne, triangleThree);
+        Assertions.assertEquals(triangleThree, triangleTwo);
+    }
 }
