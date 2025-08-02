@@ -1,15 +1,7 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 public class GroupRemovalTests extends TestBase {
-
-    @AfterEach
-    public void tearDown() {
-        driver.findElement(By.linkText("Logout")).click();
-        driver.quit();
-    }
 
     @Test
     public void canRemoveGroup() {
