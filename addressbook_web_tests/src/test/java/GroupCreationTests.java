@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class GroupCreationTests {
-    private WebDriver driver;
+    private static WebDriver driver;
 
     @BeforeEach
     public void setUp() {
