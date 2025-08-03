@@ -12,6 +12,6 @@ public class GroupCreationTests extends TestBase {
     @Test
     public void canCreateGroupWithEmptyName() {
         openGroupsPage();
-        createGroup(new GroupData());
+        createGroup(new GroupData("", "", ""));
     }
 }
