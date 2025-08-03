@@ -38,14 +38,14 @@ public class TestBase {
         }
     }
 
-    protected void createGroup(GroupData groupData) {
+    protected void createGroup(GroupData group) {
         driver.findElement(By.name("new")).click();
         driver.findElement(By.name("group_name")).click();
-        driver.findElement(By.name("group_name")).sendKeys(groupData.group_two());
+        driver.findElement(By.name("group_name")).sendKeys(group.name());
         driver.findElement(By.name("group_header")).click();
-        driver.findElement(By.name("group_header")).sendKeys(groupData.group_two_header());
+        driver.findElement(By.name("group_header")).sendKeys(group.header());
         driver.findElement(By.name("group_footer")).click();
-        driver.findElement(By.name("group_footer")).sendKeys(groupData.group_two_footer());
+        driver.findElement(By.name("group_footer")).sendKeys(group.footer());
         driver.findElement(By.name("submit")).click();
         driver.findElement(By.linkText("group page")).click();
     }
