@@ -14,4 +14,10 @@ public class GroupCreationTests extends TestBase {
         openGroupsPage();
         createGroup(new GroupData());
     }
+
+    @Test
+    public void canCreateGroupWithNameOnly() {
+        openGroupsPage();
+        createGroup(new GroupData().withName("some name"));
+    }
 }

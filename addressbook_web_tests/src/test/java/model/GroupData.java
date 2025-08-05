@@ -6,4 +6,9 @@ public record GroupData(String name, String header, String footer) {
         // создаем объект, вызывая тот конструктор, который создается в record по дефолту
         this("","","");
     }
+
+    public GroupData withName(String name) {
+        // вернуть объект с другим именем, а хэдер и футер такие же как у существующего объекта
+        return new GroupData(name, this.header, this.footer);
+    }
 }
