@@ -8,6 +8,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TestBase {
 
+    protected static ApplicationManager app;
     protected static WebDriver driver;
 
     protected static void removeGroup() {
@@ -18,6 +19,9 @@ public class TestBase {
 
     @BeforeEach
     public void setUp() {
+        if (app == null) {      // если инициализация еще не выполнялась
+            app = new ApplicationManager();
+        }
         if(driver == null) {
             driver = new FirefoxDriver();
             Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
