@@ -18,6 +18,8 @@ public class GroupCreationTests extends TestBase {
     @Test
     public void canCreateGroupWithNameOnly() {
         openGroupsPage();
-        createGroup(new GroupData().withName("some name"));
+        var emptyGroup = new GroupData();
+        var groupWithName = emptyGroup.withName("some name");
+        createGroup(groupWithName);
     }
 }
