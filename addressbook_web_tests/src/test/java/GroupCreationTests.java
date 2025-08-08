@@ -5,13 +5,13 @@ public class GroupCreationTests extends TestBase {
 
     @Test
     public void canCreateGroup() {
-        openGroupsPage();
+        openGroupsPage();                  // перейти на страницу /addressbook/group.php
         createGroup(new GroupData("group two", "group two header", "group two footer"));
     }
 
     @Test
     public void canCreateGroupWithEmptyName() {
-        openGroupsPage();
+        openGroupsPage();                   // перейти на страницу /addressbook/group.php
         createGroup(new GroupData());
     }
 

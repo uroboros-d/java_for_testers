@@ -11,12 +11,6 @@ public class TestBase {
     protected static ApplicationManager app;
     protected static WebDriver driver;
 
-    protected static void removeGroup() {
-        driver.findElement(By.name("selected[]")).click();
-        driver.findElement(By.name("delete")).click();
-        driver.findElement(By.linkText("groups")).click();
-    }
-
     @BeforeEach
     public void setUp() {
         if (app == null) {      // если инициализация еще не выполнялась
@@ -30,6 +24,12 @@ public class TestBase {
             driver.findElement(By.name("user")).sendKeys("admin");
             driver.findElement(By.name("pass")).sendKeys("secret");
             driver.findElement(By.xpath("//input[@value=\'Login\']")).click();
+        }
+    }
+
+    protected void openGroupsPage() {
+        if (! isElementPresent(By.name("new"))) {
+            driver.findElement(By.linkText("groups")).click();
         }
     }
 
@@ -54,13 +54,13 @@ public class TestBase {
         driver.findElement(By.linkText("group page")).click();
     }
 
-    protected void openGroupsPage() {
-        if (! isElementPresent(By.name("new"))) {
-            driver.findElement(By.linkText("groups")).click();
-        }
-    }
-
     protected boolean isGroupPresent() {
         return !isElementPresent(By.name("selected[]"));
+    }
+
+    protected static void removeGroup() {
+        driver.findElement(By.name("selected[]")).click();
+        driver.findElement(By.name("delete")).click();
+        driver.findElement(By.linkText("groups")).click();
     }
 }
