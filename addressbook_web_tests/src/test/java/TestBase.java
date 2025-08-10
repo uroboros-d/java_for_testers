@@ -16,6 +16,10 @@ public class TestBase {
         if (app == null) {      // если инициализация еще не выполнялась
             app = new ApplicationManager();
         }
+        init();
+    }
+
+    private void init() {
         if(driver == null) {
             driver = new FirefoxDriver();
             Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
@@ -58,7 +62,7 @@ public class TestBase {
         return isElementPresent(By.name("selected[]"));
     }
 
-    protected static void removeGroup() {
+    protected void removeGroup() {
         driver.findElement(By.name("selected[]")).click();
         driver.findElement(By.name("delete")).click();
         driver.findElement(By.linkText("groups")).click();
