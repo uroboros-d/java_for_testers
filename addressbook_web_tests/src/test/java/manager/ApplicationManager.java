@@ -1,43 +1,42 @@
+package manager;
+
 import model.GroupData;
-import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class TestBase {
+public class ApplicationManager {
+    protected WebDriver driver;
+    private LoginHelper session;
+    public GroupHelper groups;
 
-    protected static ApplicationManager app;
-    protected static WebDriver driver;
-
-    @BeforeEach
-    public void setUp() {
-        if (app == null) {      // если инициализация еще не выполнялась
-            app = new ApplicationManager();
-        }
-        init();
-    }
-
-    private void init() {
+    public void init() {
         if(driver == null) {
             driver = new FirefoxDriver();
             Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
             driver.get("http://localhost/addressbook/index.php");
             driver.manage().window().setSize(new Dimension(854, 694));
-            driver.findElement(By.name("user")).sendKeys("admin");
-            driver.findElement(By.name("pass")).sendKeys("secret");
-            driver.findElement(By.xpath("//input[@value=\'Login\']")).click();
+            session.login("admin", "secret");
         }
     }
 
-    protected void openGroupsPage() {
-        if (! isElementPresent(By.name("new"))) {
-            driver.findElement(By.linkText("groups")).click();
+    public LoginHelper session() {
+        if (session == null) {
+            session = new LoginHelper(this);
         }
+        return session;
     }
 
-    protected boolean isElementPresent(By locator) {
+    public GroupHelper groups() {
+        if (groups == null) {
+            groups = new GroupHelper(this);
+        }
+        return groups;
+    }
+
+    public boolean isElementPresent(By locator) {
         try {
             driver.findElement(locator);
             return true;
@@ -46,7 +45,7 @@ public class TestBase {
         }
     }
 
-    protected void createGroup(GroupData group) {
+    public void createGroup(GroupData group) {
         driver.findElement(By.name("new")).click();
         driver.findElement(By.name("group_name")).click();
         driver.findElement(By.name("group_name")).sendKeys(group.name());
@@ -58,11 +57,11 @@ public class TestBase {
         driver.findElement(By.linkText("group page")).click();
     }
 
-    protected boolean isGroupPresent() {
+    public boolean isGroupPresent() {
         return isElementPresent(By.name("selected[]"));
     }
 
-    protected void removeGroup() {
+    public void removeGroup() {
         driver.findElement(By.name("selected[]")).click();
         driver.findElement(By.name("delete")).click();
         driver.findElement(By.linkText("groups")).click();
