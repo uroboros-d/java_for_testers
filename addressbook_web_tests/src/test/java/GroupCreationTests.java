@@ -6,7 +6,7 @@ public class GroupCreationTests extends TestBase {
     @Test
     public void canCreateGroup() {
         openGroupsPage();                  // перейти на страницу /addressbook/group.php
-        createGroup(new GroupData("group two", "group two header", "group two footer"));
+        createGroup(new GroupData("group test", "group test header", "group test footer"));
     }
 
     @Test
