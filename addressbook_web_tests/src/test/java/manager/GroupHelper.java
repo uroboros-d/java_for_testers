@@ -11,7 +11,7 @@ public class GroupHelper {
     }
 
     public void openGroupsPage() {
-        if (! manager.isElementPresent(By.name("new"))) {
+        if (!manager.isElementPresent(By.name("new"))) {
             manager.driver.findElement(By.linkText("groups")).click();
         }
     }

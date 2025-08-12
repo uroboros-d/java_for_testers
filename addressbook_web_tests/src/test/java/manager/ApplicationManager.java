@@ -8,9 +8,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class ApplicationManager {
+
     protected WebDriver driver;
     private LoginHelper session;
-    public GroupHelper groups;
+    private GroupHelper groups;
 
     public void init() {
         if(driver == null) {
