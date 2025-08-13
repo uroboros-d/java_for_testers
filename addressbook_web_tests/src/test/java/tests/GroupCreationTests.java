@@ -7,21 +7,18 @@ public class GroupCreationTests extends TestBase {
 
     @Test
     public void canCreateGroup() {
-        app.groups().openGroupsPage();                  // перейти на страницу /addressbook/group.php
-        app.createGroup(new GroupData("test", "test header", "test footer"));
+        app.groups().createGroup(new GroupData("test", "test header", "test footer"));
     }
 
     @Test
     public void canCreateGroupWithEmptyName() {
-        app.groups().openGroupsPage();                   // перейти на страницу /addressbook/group.php
-        app.createGroup(new GroupData());
+        app.groups().createGroup(new GroupData());
     }
 
     @Test
     public void canCreateGroupWithNameOnly() {
-        app.groups().openGroupsPage();
         var emptyGroup = new GroupData();
         var groupWithName = emptyGroup.withName("some name");
-        app.createGroup(groupWithName);
+        app.groups().createGroup(groupWithName);
     }
 }
