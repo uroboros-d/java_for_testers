@@ -12,6 +12,6 @@ public class TestBase {
         if (app == null) {      // если инициализация еще не выполнялась
             app = new ApplicationManager();
         }
-        app.init();
+        app.init("firefox");
     }
 }
