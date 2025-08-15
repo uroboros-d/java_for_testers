@@ -9,17 +9,6 @@ public class GroupHelper extends HelperBase{
         super(manager);
     }
 
-    public void openGroupsPage() {
-        if (!manager.isElementPresent(By.name("new"))) {
-            click(By.linkText("groups"));
-        }
-    }
-
-    public boolean isGroupPresent() {
-        openGroupsPage();
-        return manager.isElementPresent(By.name("selected[]"));
-    }
-
     public void createGroup(GroupData group) {
         openGroupsPage();
         initGroupCreation();
@@ -28,23 +17,11 @@ public class GroupHelper extends HelperBase{
         returnToGroupsPage();
     }
 
-    private void submitGroupCreation() {
-        click(By.name("submit"));
-    }
-
-    private void initGroupCreation() {
-        click(By.name("new"));
-    }
-
     public void removeGroup() {
         openGroupsPage();
         selectGroup();
         removeSelectedGroup();
         returnToGroupsPage();
-    }
-
-    private void removeSelectedGroup() {
-        click(By.name("delete"));
     }
 
     public void modifyGroup(GroupData modifiedGroup) {
@@ -56,25 +33,48 @@ public class GroupHelper extends HelperBase{
         returnToGroupsPage();           //вернуться на страницу со списком групп
     }
 
-    private void returnToGroupsPage() {
+    public void openGroupsPage() {
+        if (!manager.isElementPresent(By.name("new"))) {
+            click(By.linkText("groups"));
+        }
+    }
+
+    public boolean isGroupPresent() {
+        openGroupsPage();
+        return manager.isElementPresent(By.name("selected[]"));
+    }
+
+    private void submitGroupCreation() {
+        click(By.name("submit"));
+    }
+
+    private void initGroupCreation() {
+        click(By.name("new"));
+    }
+
+    private void removeSelectedGroup() {
+        click(By.name("delete"));
+    }
+
+   private void returnToGroupsPage() {
         click(By.linkText("group page"));
     }
 
-    private void submitGroupModification() {
+   private void submitGroupModification() {
         click(By.name("update"));
     }
 
-    private void fillGroupForm(GroupData group) {
+   private void fillGroupForm(GroupData group) {
         type(By.name("group_name"), group.name());
         type(By.name("group_header"), group.header());
         type(By.name("group_footer"), group.footer());
     }
 
-    private void initGroupModification() {
+   private void initGroupModification() {
         click(By.name("edit"));
     }
 
-    private void selectGroup() {
+   private void selectGroup() {
         click(By.name("selected[]"));
     }
 }
