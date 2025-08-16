@@ -34,17 +34,12 @@ public class ContactCreationTests {
     public void canCreateContact() {
         driver.get("http://localhost/addressbook/");
         driver.manage().window().setSize(new Dimension(862, 680));
-        driver.findElement(By.name("user")).click();
         driver.findElement(By.name("user")).sendKeys("admin");
-        driver.findElement(By.name("pass")).click();
         driver.findElement(By.name("pass")).sendKeys("secret");
         driver.findElement(By.xpath("//input[@value=\'Login\']")).click();
         driver.findElement(By.linkText("add new")).click();
-        driver.findElement(By.name("firstname")).click();
         driver.findElement(By.name("firstname")).sendKeys("dz");
-        driver.findElement(By.name("lastname")).click();
         driver.findElement(By.name("lastname")).sendKeys("dz");
-        driver.findElement(By.name("mobile")).click();
         driver.findElement(By.name("mobile")).sendKeys("123");
         driver.findElement(By.xpath("//input[@value=\'Enter\']")).click();
         driver.findElement(By.linkText("home page")).click();
