@@ -12,6 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.util.*;
 
 public class ContactRemovalTests {
+
     private WebDriver driver;
     private Map<String, Object> vars;
     JavascriptExecutor js;
@@ -21,6 +22,12 @@ public class ContactRemovalTests {
         driver = new FirefoxDriver();
         js = (JavascriptExecutor) driver;
         vars = new HashMap<String, Object>();
+
+        driver.get("http://localhost/addressbook/");
+        driver.manage().window().setSize(new Dimension(862, 680));
+        driver.findElement(By.name("user")).sendKeys("admin");
+        driver.findElement(By.name("pass")).sendKeys("secret");
+        driver.findElement(By.xpath("//input[@value=\'Login\']")).click();
     }
 
     @AfterEach
@@ -30,14 +37,8 @@ public class ContactRemovalTests {
 
     @Test
     public void canRemoveContact() {
-        driver.get("http://localhost/addressbook/");
-        driver.manage().window().setSize(new Dimension(862, 680));
-        driver.findElement(By.name("user")).sendKeys("admin");
-        driver.findElement(By.name("pass")).sendKeys("secret");
-        driver.findElement(By.xpath("//input[@value=\'Login\']")).click();
 
         driver.findElement(By.xpath("//input[@name='selected[]' and @type='checkbox']")).click();
         driver.findElement(By.xpath("//input[@value='Delete']")).click();
-//        driver.switchTo().alert().accept();
     }
 }
