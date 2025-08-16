@@ -7,12 +7,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+//класс, в котором будут методы для управления тестируемым приложением
 public class ApplicationManager {
 
+    //переменная для запуска браузера
     protected WebDriver driver;
+    //
     private LoginHelper session;
+    //
     private GroupHelper groups;
 
+    //метод инициализации driver, открытия браузера, открытия в браузере нужной страницы, логина, закрытия браузера
     public void init(String browser) {
         if(driver == null) {
             if("firefox".equals(browser)) {
@@ -51,5 +56,4 @@ public class ApplicationManager {
             return false;
         }
     }
-
 }

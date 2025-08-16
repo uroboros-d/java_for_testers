@@ -3,6 +3,7 @@ package tests;
 import model.GroupData;
 import org.junit.jupiter.api.Test;
 
+//расширяет TestBase, наследуя его переменные и методы
 public class GroupCreationTests extends TestBase {
 
     @Test
