@@ -10,7 +10,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 
 public class ContactCreationTests {
-    //объявление переменной, с помощью которой будет зарускаться браузер
+    //объявление переменной, с помощью которой будет запускаться браузер
     private static WebDriver driver;
 
     @BeforeEach
@@ -39,7 +39,7 @@ public class ContactCreationTests {
         driver.findElement(By.linkText("home page")).click();
     }
 
-        @Test
+    @Test
     public void canCreateContactWithAllEmptyProperties() {
         if (! isElementPresent(By.name("lastname"))) {
             driver.findElement(By.linkText("add new")).click();
