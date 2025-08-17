@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.Dimension;
 
-import java.util.NoSuchElementException;
+import org.openqa.selenium.NoSuchElementException;
 
 public class ContactCreationTests {
     //объявление переменной, с помощью которой будет зарускаться браузер
@@ -18,7 +18,7 @@ public class ContactCreationTests {
     public void setUp() {
         if (driver == null) {               //проверка предусловий тестов
             driver = new FirefoxDriver();
-//            Runtime.getRuntime().addShutdownHook(new Thread(driver1::quit));
+            Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
             driver.get("http://localhost/addressbook/");
             driver.manage().window().setSize(new Dimension(862, 680));
             driver.findElement(By.name("user")).sendKeys("admin");
@@ -39,6 +39,15 @@ public class ContactCreationTests {
         driver.findElement(By.linkText("home page")).click();
     }
 
+        @Test
+    public void canCreateContactWithAllEmptyProperties() {
+        if (! isElementPresent(By.name("lastname"))) {
+            driver.findElement(By.linkText("add new")).click();
+        }
+        driver.findElement(By.xpath("//input[@value=\'Enter\']")).click();
+        driver.findElement(By.linkText("home page")).click();
+    }
+
     private boolean isElementPresent(By locator) {
         try {
             driver.findElement(locator);
@@ -46,14 +55,5 @@ public class ContactCreationTests {
         } catch (NoSuchElementException exception) {
             return false;
         }
-    }
-
-    @Test
-    public void canCreateContactWithAllEmptyProperties() {
-        if (! isElementPresent(By.name("lastname"))) {
-            driver.findElement(By.linkText("add new")).click();
-        }
-        driver.findElement(By.xpath("//input[@value=\'Enter\']")).click();
-        driver.findElement(By.linkText("home page")).click();
     }
 }
