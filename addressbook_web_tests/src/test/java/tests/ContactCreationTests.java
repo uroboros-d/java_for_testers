@@ -16,7 +16,7 @@ public class ContactCreationTests {
     @BeforeEach
     // перед тестом нужно запустить браузер, используя соответствующий драйвер
     public void setUp() {
-        if(driver == null) {               //проверка предусловий тестов
+        if (driver == null) {               //проверка предусловий тестов
             driver = new FirefoxDriver();
 //            Runtime.getRuntime().addShutdownHook(new Thread(driver1::quit));
             driver.get("http://localhost/addressbook/");
@@ -29,7 +29,9 @@ public class ContactCreationTests {
 
     @Test
     public void canCreateContact() {
-        driver.findElement(By.linkText("add new")).click();
+        if (! isElementPresent(By.name("lastname"))) {
+            driver.findElement(By.linkText("add new")).click();
+        }
         driver.findElement(By.name("firstname")).sendKeys("dz");
         driver.findElement(By.name("lastname")).sendKeys("dz");
         driver.findElement(By.name("mobile")).sendKeys("123");
@@ -37,9 +39,20 @@ public class ContactCreationTests {
         driver.findElement(By.linkText("home page")).click();
     }
 
-        @Test
+    private boolean isElementPresent(By locator) {
+        try {
+            driver.findElement(locator);
+            return true;
+        } catch (NoSuchElementException exception) {
+            return false;
+        }
+    }
+
+    @Test
     public void canCreateContactWithAllEmptyProperties() {
-        driver.findElement(By.linkText("add new")).click();
+        if (! isElementPresent(By.name("lastname"))) {
+            driver.findElement(By.linkText("add new")).click();
+        }
         driver.findElement(By.xpath("//input[@value=\'Enter\']")).click();
         driver.findElement(By.linkText("home page")).click();
     }
