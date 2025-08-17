@@ -1,7 +1,6 @@
 package tests;
 
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 
 public class ContactRemovalTests extends TestBase {
 
@@ -11,22 +10,12 @@ public class ContactRemovalTests extends TestBase {
         if (!homePageIsOpened()) {
             openHomePage();
         }
-        //если нет ни одного контакта, т.е. нет элемента selected[]
-        // - чекбокс перед контактом, то создать контакт
+        //если нет ни одного контакта, то открыть страницу add new, создать контакт
         if(!isContactPresent()) {
             openAddNewPage();
             createContact("dz", "dz", "123");
         }
         removeContact();
-    }
-
-    private boolean isContactPresent() {
-        return isElementPresent1(By.name("selected[]"));
-    }
-
-    private void removeContact() {
-        driver1.findElement(By.name("selected[]")).click();
-        driver1.findElement(By.cssSelector("input[value='Delete']")).click();
     }
 }
 

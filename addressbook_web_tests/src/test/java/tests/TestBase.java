@@ -63,7 +63,7 @@ public class TestBase {
     }
 
     protected boolean homePageIsOpened() {
-        //если на странице есть кнопка Delete, то это страница home
+        //если на странице есть кнопка Delete, то это страница home - вернуть Правда
         return isElementPresent1(By.cssSelector("input[value='Delete']"));
     }
 
@@ -73,9 +73,16 @@ public class TestBase {
     }
 
     protected boolean addNewPageIsOpened() {
-        //если на странице есть поле lastname, то это страница add new
+        //если на странице есть поле lastname, то это страница add new - вернуть Правда
         return isElementPresent1(By.name("lastname"));
     }
 
+    protected boolean isContactPresent() {
+        return isElementPresent1(By.name("selected[]"));
+    }
 
+    protected void removeContact() {
+        driver1.findElement(By.name("selected[]")).click();
+        driver1.findElement(By.cssSelector("input[value='Delete']")).click();
+    }
 }
