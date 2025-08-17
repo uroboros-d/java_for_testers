@@ -49,4 +49,33 @@ public class TestBase {
             return false;
         }
     }
+
+    protected void createContact(String firstname, String lastname, String mobile) {
+        driver1.findElement(By.name("firstname")).sendKeys(firstname);
+        driver1.findElement(By.name("lastname")).sendKeys(lastname);
+        driver1.findElement(By.name("mobile")).sendKeys(mobile);
+        driver1.findElement(By.name("submit")).click();
+    }
+
+    protected void openHomePage() {
+        //кликнуть на ссылку home
+        driver1.findElement(By.linkText("home")).click();
+    }
+
+    protected boolean homePageIsOpened() {
+        //если на странице есть кнопка Delete, то это страница home
+        return isElementPresent1(By.cssSelector("input[value='Delete']"));
+    }
+
+    protected void openAddNewPage() {
+        //кликнуть на ссылку add new
+        driver1.findElement(By.linkText("add new")).click();
+    }
+
+    protected boolean addNewPageIsOpened() {
+        //если на странице есть поле lastname, то это страница add new
+        return isElementPresent1(By.name("lastname"));
+    }
+
+
 }

@@ -2,6 +2,7 @@ package tests;
 
 import model.GroupData;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 
 //расширяет TestBase, наследуя его переменные и методы
 public class GroupCreationTests extends TestBase {
