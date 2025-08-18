@@ -1,15 +1,14 @@
 package tests;
 
-import model.GroupData;
+import model.Group;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 
 public class GroupRemovalTests extends TestBase {
 
     @Test
     public void canRemoveGroup() {
         if (!app.groups().isGroupPresent()) {
-            app.groups().createGroup(new GroupData("test", "test header", "test footer"));
+            app.groups().createGroup(new Group("test", "test header", "test footer"));
         }
         app.groups().removeGroup();
     }

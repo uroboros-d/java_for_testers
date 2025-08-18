@@ -1,6 +1,6 @@
 package tests;
 
-import model.GroupData;
+import model.Group;
 import org.junit.jupiter.api.Test;
 
 //расширяет TestBase, наследуя его переменные и методы
@@ -8,17 +8,17 @@ public class GroupCreationTests extends TestBase {
 
     @Test
     public void canCreateGroup() {
-        app.groups().createGroup(new GroupData("test", "test header", "test footer"));
+        app.groups().createGroup(new Group("test", "test header", "test footer"));
     }
 
     @Test
     public void canCreateGroupWithEmptyName() {
-        app.groups().createGroup(new GroupData());
+        app.groups().createGroup(new Group());
     }
 
     @Test
     public void canCreateGroupWithNameOnly() {
-        var emptyGroup = new GroupData();
+        var emptyGroup = new Group();
         var groupWithName = emptyGroup.withName("some name");
         app.groups().createGroup(groupWithName);
     }

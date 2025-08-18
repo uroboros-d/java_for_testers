@@ -1,5 +1,6 @@
 package tests;
 import manager.ApplicationManager;
+import model.Contact;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -41,10 +42,22 @@ public class TestBase {
         }
     }
 
-    protected void createContact(String firstname, String lastname, String mobile) {
-        driver1.findElement(By.name("firstname")).sendKeys(firstname);
-        driver1.findElement(By.name("lastname")).sendKeys(lastname);
-        driver1.findElement(By.name("mobile")).sendKeys(mobile);
+    protected void createContact(Contact contact) {
+        driver1.findElement(By.name("firstname")).sendKeys(contact.firstname());
+        driver1.findElement(By.name("middlename")).sendKeys(contact.middlename());
+        driver1.findElement(By.name("lastname")).sendKeys(contact.lastname());
+        driver1.findElement(By.name("nickname")).sendKeys(contact.nickname());
+        driver1.findElement(By.name("title")).sendKeys(contact.title());
+        driver1.findElement(By.name("company")).sendKeys(contact.company());
+        driver1.findElement(By.name("address")).sendKeys(contact.address());
+        driver1.findElement(By.name("home")).sendKeys(contact.home());
+        driver1.findElement(By.name("mobile")).sendKeys(contact.mobile());
+        driver1.findElement(By.name("work")).sendKeys(contact.work());
+        driver1.findElement(By.name("fax")).sendKeys(contact.fax());
+        driver1.findElement(By.name("email")).sendKeys(contact.email());
+        driver1.findElement(By.name("email2")).sendKeys(contact.email2());
+        driver1.findElement(By.name("email3")).sendKeys(contact.email3());
+        driver1.findElement(By.name("homepage")).sendKeys(contact.homepage());
         driver1.findElement(By.name("submit")).click();
         driver1.findElement(By.linkText("home page")).click();
     }
@@ -71,7 +84,6 @@ public class TestBase {
     protected boolean isAddNewPage() {
         return isElementPresent1(By.name("lastname"));
     }
-
 
     protected void openPage(String pageName) {
         driver1.findElement(By.linkText(pageName)).click();
