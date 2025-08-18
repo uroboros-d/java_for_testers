@@ -2,6 +2,7 @@ package tests;
 
 import model.GroupData;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 
 public class GroupModificationTests extends TestBase {
 

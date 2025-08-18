@@ -15,7 +15,8 @@ public class TestBase {
     protected static ApplicationManager app;
     //объявление переменной, с помощью которой будет запускаться браузер
     protected static WebDriver driver1;
-    
+
+//    временно закомментил, чтобы не мешало работе метода setUp1      
 //    @BeforeEach
 //    // в setUp выполняются предусловия
 //    public void setUp() {
