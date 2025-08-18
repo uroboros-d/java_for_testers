@@ -10,9 +10,13 @@ public class ContactCreationTests extends TestBase{
         if (! isElementPresent1(By.name("lastname"))) {
             driver1.findElement(By.linkText("add new")).click();
         }
-        driver1.findElement(By.name("firstname")).sendKeys("dz");
-        driver1.findElement(By.name("lastname")).sendKeys("dz");
-        driver1.findElement(By.name("mobile")).sendKeys("123");
+        createContact("dz", "dz", "123");
+    }
+
+    private static void createContact(String firstname, String lastname, String mobile) {
+        driver1.findElement(By.name("firstname")).sendKeys(firstname);
+        driver1.findElement(By.name("lastname")).sendKeys(lastname);
+        driver1.findElement(By.name("mobile")).sendKeys(mobile);
         driver1.findElement(By.name("submit")).click();
         driver1.findElement(By.linkText("home page")).click();
     }
@@ -22,8 +26,7 @@ public class ContactCreationTests extends TestBase{
         if (! isElementPresent1(By.name("lastname"))) {
             driver1.findElement(By.linkText("add new")).click();
         }
-        driver1.findElement(By.xpath("//input[@value=\'Enter\']")).click();
-        driver1.findElement(By.linkText("home page")).click();
+        createContact("", "", "");
     }
 
 }
