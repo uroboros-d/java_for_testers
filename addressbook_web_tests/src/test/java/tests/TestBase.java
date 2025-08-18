@@ -49,7 +49,7 @@ public class TestBase {
         driver1.findElement(By.linkText("home page")).click();
     }
 
-    protected static void removeContact() {
+    protected void removeContact() {
         driver1.findElement(By.name("selected[]")).click();
         driver1.findElement(By.cssSelector("input[value='Delete']")).click();
         driver1.findElement(By.linkText("home")).click();
