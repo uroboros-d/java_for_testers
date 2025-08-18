@@ -31,11 +31,21 @@ public class ContactCreationTests extends TestBase{
         ));
     }
 
-//    @Test
-//    public void canCreateContactWithAllEmptyProperties() {
-//        if (!isAddNewPage()) {
-//            openPage("add new");
-//        }
-//        createContact(new Contact("", "", ""));
-//    }
+    @Test
+    public void canCreateContactWithAllEmptyProperties() {
+        if (!isAddNewPage()) {
+            openPage("add new");
+        }
+        createContact(new Contact());
+    }
+
+    @Test
+    public void canCreateContactWithNameOnly() {
+        if (!isAddNewPage()) {
+            openPage("add new");
+        }
+        //создается первый контакт с пустыми полями, а потом метод создает
+        //второй контакт с полями первого и заполняет поле name значением some name
+        createContact(new Contact().withName("some name"));
+    }
 }
