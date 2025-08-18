@@ -1,5 +1,4 @@
 package tests;
-
 import manager.ApplicationManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
@@ -14,18 +13,19 @@ public class TestBase {
     //объявление ссылки на ApplicationManager - мереджер управления приложением
     protected static ApplicationManager app;
     //объявление переменной, с помощью которой будет запускаться браузер
-    protected WebDriver driver1;
+    protected static WebDriver driver1;
 
-    @BeforeEach
-    // в setUp выполняются предусловия
-    public void setUp() {
-        //инициализация ссылки на ApplicationManager
-        if (app == null) {      // если инициализация еще не выполнялась
-            app = new ApplicationManager();
-        }
-        //приложение запускать в браузере, указанном в browser, или в дефолтном firefox
-        app.init(System.getProperty("browser", "firefox"));
-    }
+//    временно закомментил, чтобы не мешало работе метода setUp1
+//    @BeforeEach
+//    // в setUp выполняются предусловия
+//    public void setUp() {
+//        //инициализация ссылки на ApplicationManager
+//        if (app == null) {      // если инициализация еще не выполнялась
+//            app = new ApplicationManager();
+//        }
+//        //приложение запускать в браузере, указанном в browser, или в дефолтном firefox
+//        app.init(System.getProperty("browser", "firefox"));
+//    }
 
     @BeforeEach
     // перед тестом нужно запустить браузер, используя соответствующий драйвер
@@ -41,6 +41,20 @@ public class TestBase {
         }
     }
 
+    protected void createContact(String firstname, String lastname, String mobile) {
+        driver1.findElement(By.name("firstname")).sendKeys(firstname);
+        driver1.findElement(By.name("lastname")).sendKeys(lastname);
+        driver1.findElement(By.name("mobile")).sendKeys(mobile);
+        driver1.findElement(By.name("submit")).click();
+        driver1.findElement(By.linkText("home page")).click();
+    }
+
+    protected static void removeContact() {
+        driver1.findElement(By.name("selected[]")).click();
+        driver1.findElement(By.cssSelector("input[value='Delete']")).click();
+        driver1.findElement(By.linkText("home")).click();
+    }
+
     protected boolean isElementPresent1(By locator) {
         try {
             driver1.findElement(locator);
@@ -50,39 +64,20 @@ public class TestBase {
         }
     }
 
-    protected void createContact(String firstname, String lastname, String mobile) {
-        driver1.findElement(By.name("firstname")).sendKeys(firstname);
-        driver1.findElement(By.name("lastname")).sendKeys(lastname);
-        driver1.findElement(By.name("mobile")).sendKeys(mobile);
-        driver1.findElement(By.name("submit")).click();
-    }
-
-    protected void openHomePage() {
-        //кликнуть на ссылку home
-        driver1.findElement(By.linkText("home")).click();
-    }
-
-    protected boolean homePageIsOpened() {
-        //если на странице есть кнопка Delete, то это страница home - вернуть Правда
-        return isElementPresent1(By.cssSelector("input[value='Delete']"));
-    }
-
-    protected void openAddNewPage() {
-        //кликнуть на ссылку add new
-        driver1.findElement(By.linkText("add new")).click();
-    }
-
-    protected boolean addNewPageIsOpened() {
-        //если на странице есть поле lastname, то это страница add new - вернуть Правда
-        return isElementPresent1(By.name("lastname"));
-    }
-
     protected boolean isContactPresent() {
         return isElementPresent1(By.name("selected[]"));
     }
 
-    protected void removeContact() {
-        driver1.findElement(By.name("selected[]")).click();
-        driver1.findElement(By.cssSelector("input[value='Delete']")).click();
+    protected boolean isAddNewPage() {
+        return isElementPresent1(By.name("lastname"));
+    }
+
+
+    protected void openPage(String pageName) {
+        driver1.findElement(By.linkText(pageName)).click();
+    }
+
+    protected boolean isHomePage() {
+        return isElementPresent1(By.cssSelector("input[value='Delete']"));
     }
 }

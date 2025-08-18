@@ -1,22 +1,22 @@
 package tests;
-
 import org.junit.jupiter.api.Test;
 
 public class ContactCreationTests extends TestBase{
 
     @Test
     public void canCreateContact() {
-        if (!addNewPageIsOpened()) {
-            openAddNewPage();
+        if (!isAddNewPage()) {
+            //в canRemoveContact используется openPage("home"), поэтому эта конструкция if не объединена в один метод
+            openPage("add new");
         }
-        createContact("dz", "dz", "123");
+        createContact("firstName", "lastName", "phoneNumber");
     }
 
     @Test
     public void canCreateContactWithAllEmptyProperties() {
-        if (!addNewPageIsOpened()) {
-            openAddNewPage();
+        if (!isAddNewPage()) {
+            openPage("add new");
         }
-        createContact("", "", "");
+        createContact("","","");
     }
 }
