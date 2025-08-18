@@ -15,17 +15,17 @@ public class TestBase {
     protected static ApplicationManager app;
     //объявление переменной, с помощью которой будет запускаться браузер
     protected static WebDriver driver1;
-
-    @BeforeEach
-    // в setUp выполняются предусловия
-    public void setUp() {
-        //инициализация ссылки на ApplicationManager
-        if (app == null) {      // если инициализация еще не выполнялась
-            app = new ApplicationManager();
-        }
-        //приложение запускать в браузере, указанном в browser, или в дефолтном firefox
-        app.init(System.getProperty("browser", "firefox"));
-    }
+    
+//    @BeforeEach
+//    // в setUp выполняются предусловия
+//    public void setUp() {
+//        //инициализация ссылки на ApplicationManager
+//        if (app == null) {      // если инициализация еще не выполнялась
+//            app = new ApplicationManager();
+//        }
+//        //приложение запускать в браузере, указанном в browser, или в дефолтном firefox
+//        app.init(System.getProperty("browser", "firefox"));
+//    }
 
     @BeforeEach
     // перед тестом нужно запустить браузер, используя соответствующий драйвер
@@ -41,6 +41,20 @@ public class TestBase {
         }
     }
 
+    protected void createContact(String firstname, String lastname, String mobile) {
+        driver1.findElement(By.name("firstname")).sendKeys(firstname);
+        driver1.findElement(By.name("lastname")).sendKeys(lastname);
+        driver1.findElement(By.name("mobile")).sendKeys(mobile);
+        driver1.findElement(By.name("submit")).click();
+        driver1.findElement(By.linkText("home page")).click();
+    }
+    
+    protected static void removeContact() {
+        driver1.findElement(By.name("selected[]")).click();
+        driver1.findElement(By.cssSelector("input[value='Delete']")).click();
+        driver1.findElement(By.linkText("home")).click();
+    }
+
     protected boolean isElementPresent1(By locator) {
         try {
             driver1.findElement(locator);
@@ -48,5 +62,22 @@ public class TestBase {
         } catch (NoSuchElementException exception) {
             return false;
         }
+    }
+
+    protected boolean isContactPresent() {
+        return isElementPresent1(By.name("selected[]"));
+    }
+
+    protected boolean isAddNewPage() {
+        return isElementPresent1(By.name("lastname"));
+    }
+
+
+    protected void openPage(String pageName) {
+        driver1.findElement(By.linkText(pageName)).click();
+    }
+
+    protected boolean isHomePage() {
+        return isElementPresent1(By.cssSelector("input[value='Delete']"));
     }
 }
