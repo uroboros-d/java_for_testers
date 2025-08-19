@@ -1,17 +1,18 @@
 package tests;
+
 import model.Contact;
 import org.junit.jupiter.api.Test;
 
-public class ContactRemovalTests extends TestBase{
+public class ContactRemovalTests extends TestBase {
 
     @Test
     public void canRemoveContact() {
-        if (!isHomePage()) {
-            openPage("home");
+        if (!app1.isHomePage()) {
+            app1.openPage("home");
         }
-        if(!isContactPresent()) {
-            openPage("add new");
-            createContact(new Contact(
+        if (!app1.isContactPresent()) {
+            app1.openPage("add new");
+            app1.createContact(new Contact(
                     "firstName",
                     "middleName",
                     "lastName",
@@ -29,6 +30,6 @@ public class ContactRemovalTests extends TestBase{
                     "homepage"
             ));
         }
-        removeContact();
+        app1.removeContact();
     }
 }

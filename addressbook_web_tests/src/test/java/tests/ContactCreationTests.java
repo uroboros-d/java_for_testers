@@ -1,18 +1,17 @@
 package tests;
+
 import model.Contact;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-
-public class ContactCreationTests extends TestBase{
+public class ContactCreationTests extends TestBase {
 
     @Test
     public void canCreateContactWithAllStringProperties() {
-        if (!isAddNewPage()) {
+        if (!app1.isAddNewPage()) {
             //в canRemoveContact используется openPage("home"), поэтому эта конструкция if не объединена в один метод
-            openPage("add new");
+            app1.openPage("add new");
         }
-        createContact(new Contact(
+        app1.createContact(new Contact(
                 "firstName",
                 "middleName",
                 "lastName",
@@ -33,29 +32,29 @@ public class ContactCreationTests extends TestBase{
 
     @Test
     public void canCreateContactWithAllEmptyProperties() {
-        if (!isAddNewPage()) {
-            openPage("add new");
+        if (!app1.isAddNewPage()) {
+            app1.openPage("add new");
         }
-        createContact(new Contact());
+        app1.createContact(new Contact());
     }
 
     @Test
     public void canCreateContactWithNameOnly() {
-        if (!isAddNewPage()) {
-            openPage("add new");
+        if (!app1.isAddNewPage()) {
+            app1.openPage("add new");
         }
         //создается первый контакт с пустыми полями, а потом метод создает
         //второй контакт с полями первого и заполняет поле name значением some name
-        createContact(new Contact().withName("some name"));
+        app1.createContact(new Contact().withName("some name"));
     }
 
     @Test
     public void canCreateContactWithFiveProperties() {
-        if (!isAddNewPage()) {
-            openPage("add new");
+        if (!app1.isAddNewPage()) {
+            app1.openPage("add new");
         }
         //создается первый контакт с пустыми полями, а потом метод создает
         //второй контакт с полями первого и заполняет поле name значением some name
-        createContact(new Contact().withFiveProperties("firstname",  "lastname",  "address",  "email",  "mobile"));
+        app1.createContact(new Contact().withFiveProperties("firstname", "lastname", "address", "email", "mobile"));
     }
 }
