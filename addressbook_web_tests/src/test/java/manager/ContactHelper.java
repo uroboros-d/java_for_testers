@@ -19,6 +19,9 @@ public class ContactHelper {
     }
 
     public void createContact(Contact contact) {
+        if (! isAddNewPage()) {
+            openPage("add new");
+        }
         manager1.driver1.findElement(By.name("firstname")).sendKeys(contact.firstname());
         manager1.driver1.findElement(By.name("middlename")).sendKeys(contact.middlename());
         manager1.driver1.findElement(By.name("lastname")).sendKeys(contact.lastname());
@@ -39,6 +42,9 @@ public class ContactHelper {
     }
 
     public void removeContact() {
+        if (!isHomePage()) {
+            openPage("home");
+        }
         manager1.driver1.findElement(By.name("selected[]")).click();
         manager1.driver1.findElement(By.cssSelector("input[value='Delete']")).click();
         manager1.driver1.findElement(By.linkText("home")).click();

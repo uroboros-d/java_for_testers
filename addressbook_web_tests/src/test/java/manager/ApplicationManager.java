@@ -56,6 +56,4 @@ public class ApplicationManager {
             return false;
         }
     }
-
-
 }

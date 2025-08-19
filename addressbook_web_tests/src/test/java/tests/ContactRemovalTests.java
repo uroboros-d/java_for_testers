@@ -7,9 +7,6 @@ public class ContactRemovalTests extends TestBase {
 
     @Test
     public void canRemoveContact() {
-        if (!app1.contacts().isHomePage()) {
-            app1.contacts().openPage("home");
-        }
         if (!app1.contacts().isContactPresent()) {
             app1.contacts().openPage("add new");
             app1.contacts().createContact(new Contact(
