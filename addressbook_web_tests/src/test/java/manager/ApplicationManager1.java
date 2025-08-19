@@ -9,18 +9,26 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class ApplicationManager1 {
     //объявление переменной, с помощью которой будет запускаться браузер
-    public static WebDriver driver1;
+    public WebDriver driver1;
+
+    private LoginHelper1 session1;
 
     public void init1() {
         if (driver1 == null) {               //проверка предусловий тестов
             driver1 = new FirefoxDriver();
-            Runtime.getRuntime().addShutdownHook(new Thread(ApplicationManager1.driver1::quit));
+            Runtime.getRuntime().addShutdownHook(new Thread(driver1::quit));
             driver1.get("http://localhost/addressbook/");
             driver1.manage().window().setSize(new Dimension(862, 680));
-            driver1.findElement(By.name("user")).sendKeys("admin");
-            driver1.findElement(By.name("pass")).sendKeys("secret");
-            driver1.findElement(By.xpath("//input[@value=\'Login\']")).click();
+            session1.login1("admin", "secret");
         }
+    }
+
+    public LoginHelper1 session1(){
+        if (session1==null) {
+            session1 = new LoginHelper1(this);
+        }
+        //если уже проинициализирован, то внутрь if не попадаем, а сразу возвращаем ссылку на помощника
+        return session1;
     }
 
     public boolean isElementPresent1(By locator) {
