@@ -48,4 +48,14 @@ public class ContactCreationTests extends TestBase{
         //второй контакт с полями первого и заполняет поле name значением some name
         createContact(new Contact().withName("some name"));
     }
+
+    @Test
+    public void canCreateContactWithFiveProperties() {
+        if (!isAddNewPage()) {
+            openPage("add new");
+        }
+        //создается первый контакт с пустыми полями, а потом метод создает
+        //второй контакт с полями первого и заполняет поле name значением some name
+        createContact(new Contact().withFiveProperties("firstname",  "lastname",  "address",  "email",  "mobile"));
+    }
 }
