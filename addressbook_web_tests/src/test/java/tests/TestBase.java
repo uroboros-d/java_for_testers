@@ -29,6 +29,6 @@ public class TestBase {
         if (app1 == null) {
             app1 = new ApplicationManager1();
         }
-        app1.init1();
+        app1.init1(System.getProperty("browser", "firefox"));
     }
 }

@@ -10,18 +10,27 @@ public class ContactHelper {
         this.manager1 = manager1;
     }
 
-    public void openPage(String pageName) {
-        manager1.driver1.findElement(By.linkText(pageName)).click();
-    }
-
-    public boolean isContactPresent() {
-        return manager1.isElementPresent1(By.name("selected[]"));
-    }
-
     public void createContact(Contact contact) {
-        if (! isAddNewPage()) {
-            openPage("add new");
+        goToAddNewPage();
+        fillContactForm(contact);
+        submitContactCreation();
+        goToHomePage();
+    }
+
+    public void removeContact() {
+        goToHomePage();
+        selectContact();
+        removeSelectedContact();
+        goToHomePage();
+    }
+
+    public void goToAddNewPage() {
+        if (! manager1.isElementPresent1(By.name("lastname"))) {
+            manager1.driver1.findElement(By.linkText("add new")).click();
         }
+    }
+
+    private void fillContactForm(Contact contact) {
         manager1.driver1.findElement(By.name("firstname")).sendKeys(contact.firstname());
         manager1.driver1.findElement(By.name("middlename")).sendKeys(contact.middlename());
         manager1.driver1.findElement(By.name("lastname")).sendKeys(contact.lastname());
@@ -37,24 +46,42 @@ public class ContactHelper {
         manager1.driver1.findElement(By.name("email2")).sendKeys(contact.email2());
         manager1.driver1.findElement(By.name("email3")).sendKeys(contact.email3());
         manager1.driver1.findElement(By.name("homepage")).sendKeys(contact.homepage());
+    }
+
+    private void submitContactCreation() {
         manager1.driver1.findElement(By.name("submit")).click();
-        manager1.driver1.findElement(By.linkText("home page")).click();
     }
 
-    public void removeContact() {
-        if (!isHomePage()) {
-            openPage("home");
+    private void goToHomePage() {
+        if (!manager1.isElementPresent1(By.cssSelector("input[value='Delete']"))) {
+            manager1.driver1.findElement(By.linkText("home")).click();
         }
+        //без использования задержки при запуске класса с тестами создания 1 тест выполн-ся успешно,
+        // а остальные падают с ошибкой "Unable to locate element: add new"
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Pause");
+        }
+    }
+
+    private void selectContact() {
         manager1.driver1.findElement(By.name("selected[]")).click();
+    }
+
+    private void removeSelectedContact() {
         manager1.driver1.findElement(By.cssSelector("input[value='Delete']")).click();
-        manager1.driver1.findElement(By.linkText("home")).click();
     }
 
-    public boolean isAddNewPage() {
-        return manager1.isElementPresent1(By.name("lastname"));
+    public boolean isContactPresent() {
+        return manager1.isElementPresent1(By.name("selected[]"));
     }
 
-    public boolean isHomePage() {
-        return manager1.isElementPresent1(By.cssSelector("input[value='Delete']"));
-    }
+//    public boolean isAddNewPage() {
+//        return manager1.isElementPresent1(By.name("lastname"));
+//    }
+
+//    public boolean isHomePage() {
+//        return manager1.isElementPresent1(By.cssSelector("input[value='Delete']"));
+//    }
 }

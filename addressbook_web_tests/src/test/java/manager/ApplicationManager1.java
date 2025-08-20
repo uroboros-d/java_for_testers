@@ -4,7 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 
 public class ApplicationManager1 {
     //объявление переменной, с помощью которой будет запускаться браузер
@@ -14,9 +16,15 @@ public class ApplicationManager1 {
 
     public ContactHelper contacts;
 
-    public void init1() {
+    public void init1(String browser) {
         if (driver1 == null) {               //проверка предусловий тестов
-            driver1 = new FirefoxDriver();
+            if("firefox".equals(browser)){
+                driver1 = new FirefoxDriver();
+            } else if ("chrome".equals(browser)){
+                driver1 = new ChromeDriver();
+            } else {
+                throw new IllegalArgumentException(String.format("Unknown browser %s", browser));
+            }
             Runtime.getRuntime().addShutdownHook(new Thread(driver1::quit));
             driver1.get("http://localhost/addressbook/");
             driver1.manage().window().setSize(new Dimension(862, 680));
