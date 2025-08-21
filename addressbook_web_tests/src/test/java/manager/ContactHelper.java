@@ -5,8 +5,6 @@ import org.openqa.selenium.By;
 
 public class ContactHelper extends HelperBase {
 
-//    private final ApplicationManager1 manager1;
-
     public ContactHelper(ApplicationManager manager) {
         super(manager);
     }
@@ -26,7 +24,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void goToAddNewPage() {
-        if (! manager.isElementPresent(By.name("lastname"))) {
+        if (!manager.isElementPresent(By.name("lastname"))) {
             click(By.linkText("add new"));
         }
     }
@@ -77,14 +75,4 @@ public class ContactHelper extends HelperBase {
     public boolean isContactPresent() {
         return manager.isElementPresent(By.name("selected[]"));
     }
-
-//    private void click(By locator) {
-//        manager.driver.findElement(locator).click();
-//    }
-//
-//    private void type(By locator, String text) {
-//        click(locator);
-//        manager1.driver1.findElement(locator).clear();
-//        manager1.driver1.findElement(locator).sendKeys(text);
-//    }
 }

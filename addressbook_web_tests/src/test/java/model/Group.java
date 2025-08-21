@@ -5,7 +5,7 @@ public record Group(String name, String header, String footer) {
     // явно указываем второй конструктор (первый заложен вверху в record)
     public Group() {
         // создать объект с 0 параметров, вызывая тот конструктор, который создается в record по дефолту
-        this("","","");
+        this("", "", "");
     }
 
     public Group withName(String name) {

@@ -21,11 +21,11 @@ public class ApplicationManager {
 
     //метод инициализации driver, открытия браузера, открытия в браузере нужной страницы, логина, закрытия браузера
     public void init(String browser) {
-        if(driver == null) {
-            if("firefox".equals(browser)) {
+        if (driver == null) {
+            if ("firefox".equals(browser)) {
                 driver = new FirefoxDriver();
-            } else if("chrome".equals(browser)) {
-                 driver = new ChromeDriver();
+            } else if ("chrome".equals(browser)) {
+                driver = new ChromeDriver();
             } else {
                 throw new IllegalArgumentException(String.format("Unknown browser %s", browser));
             }
