@@ -87,4 +87,11 @@ public class GroupHelper extends HelperBase {
     private void selectGroup() {
         click(By.name("selected[]"));
     }
+
+    public int getCount() {
+        openGroupsPage();
+        //функция находит не один элемент, а много и возвращает список найденных элементов,
+        //но нас интересует их кол-во, поэтому используем функцию size()
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
 }
