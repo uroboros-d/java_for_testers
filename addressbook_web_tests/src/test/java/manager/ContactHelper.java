@@ -3,11 +3,12 @@ package manager;
 import model.Contact;
 import org.openqa.selenium.By;
 
-public class ContactHelper {
-    private final ApplicationManager1 manager1;
+public class ContactHelper extends HelperBase {
 
-    public ContactHelper(ApplicationManager1 manager1) {
-        this.manager1 = manager1;
+//    private final ApplicationManager1 manager1;
+
+    public ContactHelper(ApplicationManager manager) {
+        super(manager);
     }
 
     public void createContact(Contact contact) {
@@ -25,39 +26,39 @@ public class ContactHelper {
     }
 
     public void goToAddNewPage() {
-        if (! manager1.isElementPresent1(By.name("lastname"))) {
-            manager1.driver1.findElement(By.linkText("add new")).click();
+        if (! manager.isElementPresent(By.name("lastname"))) {
+            click(By.linkText("add new"));
         }
     }
 
     private void fillContactForm(Contact contact) {
-        manager1.driver1.findElement(By.name("firstname")).sendKeys(contact.firstname());
-        manager1.driver1.findElement(By.name("middlename")).sendKeys(contact.middlename());
-        manager1.driver1.findElement(By.name("lastname")).sendKeys(contact.lastname());
-        manager1.driver1.findElement(By.name("nickname")).sendKeys(contact.nickname());
-        manager1.driver1.findElement(By.name("title")).sendKeys(contact.title());
-        manager1.driver1.findElement(By.name("company")).sendKeys(contact.company());
-        manager1.driver1.findElement(By.name("address")).sendKeys(contact.address());
-        manager1.driver1.findElement(By.name("home")).sendKeys(contact.home());
-        manager1.driver1.findElement(By.name("mobile")).sendKeys(contact.mobile());
-        manager1.driver1.findElement(By.name("work")).sendKeys(contact.work());
-        manager1.driver1.findElement(By.name("fax")).sendKeys(contact.fax());
-        manager1.driver1.findElement(By.name("email")).sendKeys(contact.email());
-        manager1.driver1.findElement(By.name("email2")).sendKeys(contact.email2());
-        manager1.driver1.findElement(By.name("email3")).sendKeys(contact.email3());
-        manager1.driver1.findElement(By.name("homepage")).sendKeys(contact.homepage());
+        type(By.name("firstname"), contact.firstname());
+        type(By.name("middlename"), contact.middlename());
+        type(By.name("lastname"), contact.lastname());
+        type(By.name("nickname"), contact.nickname());
+        type(By.name("title"), contact.title());
+        type(By.name("company"), contact.company());
+        type(By.name("address"), contact.address());
+        type(By.name("home"), contact.home());
+        type(By.name("mobile"), contact.mobile());
+        type(By.name("work"), contact.work());
+        type(By.name("fax"), contact.fax());
+        type(By.name("email"), contact.email());
+        type(By.name("email2"), contact.email2());
+        type(By.name("email3"), contact.email3());
+        type(By.name("homepage"), contact.homepage());
     }
 
     private void submitContactCreation() {
-        manager1.driver1.findElement(By.name("submit")).click();
+        click(By.name("submit"));
     }
 
     private void goToHomePage() {
-        if (!manager1.isElementPresent1(By.cssSelector("input[value='Delete']"))) {
-            manager1.driver1.findElement(By.linkText("home")).click();
+        if (!manager.isElementPresent(By.cssSelector("input[value='Delete']"))) {
+            click(By.linkText("home"));
         }
-        //без использования задержки при запуске класса с тестами создания 1 тест выполн-ся успешно,
-        // а остальные падают с ошибкой "Unable to locate element: add new"
+        //без использования задержки при запуске класса ContactCreationTests 1-й тест выполняется успешно,
+        //а остальные падают с ошибкой "Unable to locate element: add new"
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -66,22 +67,24 @@ public class ContactHelper {
     }
 
     private void selectContact() {
-        manager1.driver1.findElement(By.name("selected[]")).click();
+        click(By.name("selected[]"));
     }
 
     private void removeSelectedContact() {
-        manager1.driver1.findElement(By.cssSelector("input[value='Delete']")).click();
+        click(By.cssSelector("input[value='Delete']"));
     }
 
     public boolean isContactPresent() {
-        return manager1.isElementPresent1(By.name("selected[]"));
+        return manager.isElementPresent(By.name("selected[]"));
     }
 
-//    public boolean isAddNewPage() {
-//        return manager1.isElementPresent1(By.name("lastname"));
+//    private void click(By locator) {
+//        manager.driver.findElement(locator).click();
 //    }
-
-//    public boolean isHomePage() {
-//        return manager1.isElementPresent1(By.cssSelector("input[value='Delete']"));
+//
+//    private void type(By locator, String text) {
+//        click(locator);
+//        manager1.driver1.findElement(locator).clear();
+//        manager1.driver1.findElement(locator).sendKeys(text);
 //    }
 }

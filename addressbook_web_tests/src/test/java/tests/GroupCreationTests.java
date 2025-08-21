@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 public class GroupCreationTests extends TestBase {
 
     @Test
-    public void canCreateGroup() {
-        app.groups().createGroup(new Group("test", "test header", "test footer"));
+    public void canCreateGroupWithAllProperties() {
+        app.groups().createGroup(new Group("With All Properties", "header", "footer"));
     }
 
     @Test
@@ -19,7 +19,7 @@ public class GroupCreationTests extends TestBase {
     @Test
     public void canCreateGroupWithNameOnly() {
         var emptyGroup = new Group();
-        var groupWithName = emptyGroup.withName("some name");
+        var groupWithName = emptyGroup.withName("With Name Only");
         app.groups().createGroup(groupWithName);
     }
 }

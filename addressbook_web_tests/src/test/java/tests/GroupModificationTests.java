@@ -8,8 +8,8 @@ public class GroupModificationTests extends TestBase {
     @Test
     void canModifyGroup() {
         if (!app.groups().isGroupPresent()) {
-            app.groups().createGroup(new Group("test", "test header", "test footer"));
+            app.groups().createGroup(new Group("With All Properties", "header", "footer"));
         }
-        app.groups().modifyGroup(new Group().withName("modified name"));
+        app.groups().modifyGroup(new Group().withName("Modified Name"));
     }
 }

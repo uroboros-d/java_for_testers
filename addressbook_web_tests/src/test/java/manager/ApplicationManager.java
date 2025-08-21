@@ -10,12 +10,14 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 //класс, в котором будут методы для управления тестируемым приложением
 public class ApplicationManager {
 
-    //переменная для запуска браузера
+    //ссылка для запуска браузера
     protected WebDriver driver;
-    //
+    //ссылка для управления сессией
     private LoginHelper session;
-    //
+    //ссылка для управления группой
     private GroupHelper groups;
+    //ссылка для управления контактом
+    public ContactHelper contacts;
 
     //метод инициализации driver, открытия браузера, открытия в браузере нужной страницы, логина, закрытия браузера
     public void init(String browser) {
@@ -46,6 +48,14 @@ public class ApplicationManager {
             groups = new GroupHelper(this);
         }
         return groups;
+    }
+
+    public ContactHelper contacts() {
+        if (contacts == null) {
+            contacts = new ContactHelper(this);
+        }
+        //если уже проинициализирован, то внутрь if не попадаем, а сразу возвращаем ссылку на помощника
+        return contacts;
     }
 
     public boolean isElementPresent(By locator) {

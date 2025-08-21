@@ -7,7 +7,7 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     public void canCreateContactWithAllStringProperties() {
-        app1.contacts().createContact(new Contact(
+        app.contacts().createContact(new Contact(
                 "firstName",
                 "middleName",
                 "lastName",
@@ -28,16 +28,16 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     public void canCreateContactWithAllEmptyProperties() {
-        app1.contacts().createContact(new Contact());
+        app.contacts().createContact(new Contact());
     }
 
     @Test
     public void canCreateContactWithNameOnly() {
-        app1.contacts().createContact(new Contact().withName("some name"));
+        app.contacts().createContact(new Contact().withName("some name"));
     }
 
     @Test
     public void canCreateContactWithFiveProperties() {
-        app1.contacts().createContact(new Contact().withFiveProperties("firstname", "lastname", "address", "email", "mobile"));
+        app.contacts().createContact(new Contact().withFiveProperties("firstname", "lastname", "address", "email", "mobile"));
     }
 }
