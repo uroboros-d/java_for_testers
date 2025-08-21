@@ -17,6 +17,6 @@ public class TestBase {
             app = new ApplicationManager();
         }
         //приложение запускать в браузере, указанном в browser, или в дефолтном firefox
-        app.init(System.getProperty("browser", "firefox"));
+        app.init(System.getProperty("browser", "chrome"));
     }
 }

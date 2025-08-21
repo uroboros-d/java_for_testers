@@ -57,6 +57,11 @@ public class GroupHelper extends HelperBase {
     }
 
     private void returnToGroupsPage() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Pause");
+        }
         click(By.linkText("group page"));
     }
 
@@ -65,6 +70,11 @@ public class GroupHelper extends HelperBase {
     }
 
     private void fillGroupForm(Group group) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Pause");
+        }
         type(By.name("group_name"), group.name());
         type(By.name("group_header"), group.header());
         type(By.name("group_footer"), group.footer());
