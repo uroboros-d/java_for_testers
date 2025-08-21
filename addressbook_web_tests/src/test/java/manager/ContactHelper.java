@@ -25,6 +25,7 @@ public class ContactHelper extends HelperBase {
 
     public void goToAddNewPage() {
         if (!manager.isElementPresent(By.name("lastname"))) {
+
             click(By.linkText("add new"));
         }
     }
@@ -55,8 +56,7 @@ public class ContactHelper extends HelperBase {
         if (!manager.isElementPresent(By.cssSelector("input[value='Delete']"))) {
             click(By.linkText("home"));
         }
-        //без использования задержки при запуске класса ContactCreationTests 1-й тест выполняется успешно,
-        //а остальные падают с ошибкой "Unable to locate element: add new"
+        //без использования задержки тесты падают с ошибкой типа "Unable to locate element: add new"
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
