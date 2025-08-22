@@ -28,4 +28,17 @@ public class GroupCreationTests extends TestBase {
         var groupWithName = emptyGroup.withName("With Name Only");
         app.groups().createGroup(groupWithName);
     }
+
+    @Test
+    public void canCreateMultipleGroups() {
+        int n = 5;
+        int groupCount = app.groups().getCount();
+
+        for(int i=0;i<n;i++) {
+            //генерир-ся строка случ символов c увеличивающейся длиной i
+            app.groups().createGroup(new Group(randomString(i), "header", "footer"));
+        }
+        int newGroupCount = app.groups().getCount();
+        Assertions.assertEquals(groupCount + n, newGroupCount);
+    }
 }

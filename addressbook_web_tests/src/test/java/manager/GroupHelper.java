@@ -20,7 +20,7 @@ public class GroupHelper extends HelperBase {
     public void removeGroup() {
         openGroupsPage();
         selectGroup();
-        removeSelectedGroup();
+        removeSelectedGroups();
         returnToGroupsPage();
     }
 
@@ -47,7 +47,7 @@ public class GroupHelper extends HelperBase {
         click(By.name("new"));
     }
 
-    private void removeSelectedGroup() {
+    private void removeSelectedGroups() {
         click(By.name("delete"));
     }
 
@@ -88,5 +88,19 @@ public class GroupHelper extends HelperBase {
         //функция находит не один элемент, а много и возвращает список найденных элементов,
         //но нас интересует их кол-во, поэтому используем функцию size()
         return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
+    public void removeAllGroup() {
+        openGroupsPage();
+        selectAllGroups();
+        removeSelectedGroups();
+    }
+
+    private void selectAllGroups() {
+        var checkboxes = manager.driver.findElements(By.name("selected[]"));
+        //пробегает по всем элементам checkbox коллекции checkboxes и кликает на них
+        for (var checkbox: checkboxes) {
+            checkbox.click();
+        }
     }
 }
