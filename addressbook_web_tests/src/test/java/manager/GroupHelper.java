@@ -39,11 +39,6 @@ public class GroupHelper extends HelperBase {
         }
     }
 
-    public boolean isGroupPresent() {
-        openGroupsPage();
-        return manager.isElementPresent(By.name("selected[]"));
-    }
-
     private void submitGroupCreation() {
         click(By.name("submit"));
     }
