@@ -3,14 +3,31 @@ package tests;
 import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GroupCreationTests extends TestBase {
 
-    @Test
-    public void canCreateGroupWithAllProperties() {
+    public static List<String> groupNameProvider() {
+        var result = new ArrayList<String>();
+        for(int i=0;i<5;i++) {
+            //генерир-ся строка случ символов c увеличивающейся длиной i
+            result.add(randomString(i*10));
+        }
+        return result;
+    }
+
+    @ParameterizedTest
+    //перечисляются значения для параметра name; второе значение с апострофом '
+    @ValueSource(strings = {"group name", "group name'"})
+    public void canCreateGroupWithAllProperties(String name) {
         //считает кол-во групп до создания новой
         int groupCount = app.groups().getCount();
-        app.groups().createGroup(new Group("With All Properties", "header", "footer"));
+        app.groups().createGroup(new Group(name, "header", "footer"));
         //считает кол-во групп после создания новой
         int newGroupCount = app.groups().getCount();
         //проверка:значение "до" + 1 = значение "после"
@@ -29,7 +46,8 @@ public class GroupCreationTests extends TestBase {
         app.groups().createGroup(groupWithName);
     }
 
-    @Test
+    @ParameterizedTest
+    @MethodSource("groupNameProvider")
     public void canCreateMultipleGroups() {
         int n = 5;
         int groupCount = app.groups().getCount();
@@ -41,4 +59,5 @@ public class GroupCreationTests extends TestBase {
         int newGroupCount = app.groups().getCount();
         Assertions.assertEquals(groupCount + n, newGroupCount);
     }
+
 }
