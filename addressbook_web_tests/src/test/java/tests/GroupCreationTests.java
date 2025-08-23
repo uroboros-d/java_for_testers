@@ -13,7 +13,7 @@ import java.util.List;
 public class GroupCreationTests extends TestBase {
 
     public static List<String> groupNameProvider() {
-        var result = new ArrayList<String>();
+        var result = new ArrayList<String>(List.of("group name", "group name'"));
         for(int i=0;i<5;i++) {
             //генерир-ся строка случ символов c увеличивающейся длиной i
             result.add(randomString(i*10));
@@ -22,15 +22,11 @@ public class GroupCreationTests extends TestBase {
     }
 
     @ParameterizedTest
-    //перечисляются значения для параметра name; второе значение с апострофом '
-    @ValueSource(strings = {"group name", "group name'"})
-    public void canCreateGroupWithAllProperties(String name) {
-        //считает кол-во групп до создания новой
+    @MethodSource("groupNameProvider")  //указана вспомогат ф-ция выше
+    public void canCreateMultipleGroups(String name) {
         int groupCount = app.groups().getCount();
         app.groups().createGroup(new Group(name, "header", "footer"));
-        //считает кол-во групп после создания новой
         int newGroupCount = app.groups().getCount();
-        //проверка:значение "до" + 1 = значение "после"
         Assertions.assertEquals(groupCount + 1, newGroupCount);
     }
 
@@ -45,19 +41,4 @@ public class GroupCreationTests extends TestBase {
         var groupWithName = emptyGroup.withName("With Name Only");
         app.groups().createGroup(groupWithName);
     }
-
-    @ParameterizedTest
-    @MethodSource("groupNameProvider")
-    public void canCreateMultipleGroups() {
-        int n = 5;
-        int groupCount = app.groups().getCount();
-
-        for(int i=0;i<n;i++) {
-            //генерир-ся строка случ символов c увеличивающейся длиной i
-            app.groups().createGroup(new Group(randomString(i), "header", "footer"));
-        }
-        int newGroupCount = app.groups().getCount();
-        Assertions.assertEquals(groupCount + n, newGroupCount);
-    }
-
 }
