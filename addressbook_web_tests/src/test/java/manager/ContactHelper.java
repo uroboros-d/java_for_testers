@@ -9,6 +9,13 @@ public class ContactHelper extends HelperBase {
         super(manager);
     }
 
+    public int getCount() {
+        goToHomePage();
+        //функция находит не один элемент, а много и возвращает список найденных элементов,
+        //но нас интересует их кол-во, поэтому используем функцию size()
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
     public void createContact(Contact contact) {
         goToAddNewPage();
         fillContactForm(contact);
