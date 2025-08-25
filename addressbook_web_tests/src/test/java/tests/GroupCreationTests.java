@@ -12,8 +12,7 @@ public class GroupCreationTests extends TestBase {
     //возвращает список объектов типа Group
     public static List<Group> groupProvider() {
         //result будет списком объектов типа Group
-        var result = new ArrayList<Group>(List.of(
-                new Group("group name'", "", "")));
+        var result = new ArrayList<Group>();
         //перебирает 2 комбинации названия
         for(var name: List.of("", "name")){
             for(var header: List.of("", "header")){
@@ -38,5 +37,21 @@ public class GroupCreationTests extends TestBase {
         app.groups().createGroup(group);
         int newGroupCount = app.groups().getCount();
         Assertions.assertEquals(groupCount + 1, newGroupCount);
+    }
+
+    public static List<Group> negativeGroupProvider() {
+        //result будет списком объектов типа Group
+        var result = new ArrayList<>(List.of(
+                new Group("group name'", "", "")));
+        return result;
+    }
+
+    @ParameterizedTest
+    @MethodSource("negativeGroupProvider")  //указана вспомогат ф-ция выше
+    public void canNotCreateGroup(Group group) {
+        int groupCount = app.groups().getCount();
+        app.groups().createGroup(group);
+        int newGroupCount = app.groups().getCount();
+        Assertions.assertEquals(groupCount, newGroupCount);
     }
 }

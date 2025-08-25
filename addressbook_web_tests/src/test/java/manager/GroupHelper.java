@@ -53,7 +53,7 @@ public class GroupHelper extends HelperBase {
 
     private void returnToGroupsPage() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             throw new RuntimeException("Pause");
         }
@@ -66,7 +66,7 @@ public class GroupHelper extends HelperBase {
 
     private void fillGroupForm(Group group) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             throw new RuntimeException("Pause");
         }

@@ -11,21 +11,10 @@ public class ContactRemovalTests extends TestBase {
             app.contacts().goToAddNewPage();
             app.contacts().createContact(new Contact(
                     "firstName",
-                    "middleName",
                     "lastName",
-                    "nickName",
-                    "title",
-                    "company",
                     "address",
-                    "homePhone",
                     "mobilePhone",
-                    "workPhone",
-                    "fax",
-                    "email",
-                    "email2",
-                    "email3",
-                    "homepage"
-            ));
+                    "email"));
         }
         app.contacts().removeContact();
     }
