@@ -10,7 +10,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public int getCount() {
-        goToHomePage();
+        //goToHomePage();
         //функция находит не один элемент, а много и возвращает список найденных элементов,
         //но нас интересует их кол-во, поэтому используем функцию size()
         return manager.driver.findElements(By.name("selected[]")).size();
@@ -20,14 +20,19 @@ public class ContactHelper extends HelperBase {
         goToAddNewPage();
         fillContactForm(contact);
         submitContactCreation();
-        //goToHomePage();
+        goToHomePage();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Pause");
+        }
     }
 
     public void removeContact() {
         goToHomePage();
         selectContact();
         removeSelectedContact();
-//        goToHomePage();
+        goToHomePage();
     }
 
     public void goToAddNewPage() {

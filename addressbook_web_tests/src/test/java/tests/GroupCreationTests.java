@@ -9,7 +9,6 @@ import java.util.List;
 
 public class GroupCreationTests extends TestBase {
 
-    //возвращает список объектов типа Group
     public static List<Group> groupProvider() {
         //result будет списком объектов типа Group
         var result = new ArrayList<Group>();
