@@ -16,16 +16,21 @@ public class GroupCreationTests extends TestBase {
         for(var name: List.of("", "name")){
             for(var header: List.of("", "header")){
                 for(var footer: List.of("", "footer")){
-                    result.add(new Group(name, header, footer));
+                    result.add(new Group()
+                            .withName(name)
+                            .withHeader(header)
+                            .withFooter(footer));
                 }
             }
         }
         for(int i=0;i<5;i++) {
-            //добавл-ся объекты типа Group с случ сгенерир именем, хэдером и футером
-            result.add(new Group("random " + randomString(i*10),
-                    "random " + randomString(i*10),
-                    "random " + randomString(i*10)));
+            //вызывается конструктор без параметров, а потом создаются объекты с модиф св-ми
+            result.add(new Group()
+                    .withName("random " + randomString(i*10))       //созд-ся объект с именем с ранд строкой
+                    .withHeader("random " + randomString(i*10))     //созд-ся объект с хэдером с ранд строкой
+                    .withFooter("random " + randomString(i*10)));   //созд-ся объект с футером с ранд строкой
         }
+        //в этом случае при изменении конструктора (т.е. при добавлении новых свойств) код в этом месте меняться не будет
         return result;
     }
 
@@ -41,7 +46,7 @@ public class GroupCreationTests extends TestBase {
     public static List<Group> negativeGroupProvider() {
         //result будет списком объектов типа Group
         var result = new ArrayList<>(List.of(
-                new Group("group name'", "", "")));
+                new Group("", "group name'", "", "")));
         return result;
     }
 
