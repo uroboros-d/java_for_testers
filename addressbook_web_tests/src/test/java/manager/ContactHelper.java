@@ -21,11 +21,11 @@ public class ContactHelper extends HelperBase {
         fillContactForm(contact);
         submitContactCreation();
         goToHomePage();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Pause");
-        }
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException("Pause");
+//        }
     }
 
     public void removeContact() {
