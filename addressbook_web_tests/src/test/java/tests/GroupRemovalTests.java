@@ -4,7 +4,8 @@ import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class GroupRemovalTests extends TestBase {
 
@@ -13,13 +14,24 @@ public class GroupRemovalTests extends TestBase {
         if (app.groups().getCount() == 0) {
             app.groups().createGroup(new Group("", "test name", "test header", "test footer"));
         }
-
-        int groupCount = app.groups().getCount();
-        app.groups().removeGroup();
-        List<Group> oldGroups = app.groups().getList();
-        int newGroupCount = app.groups().getCount();
-        //проверка:значение "до" - 1 = значение "после"
-        Assertions.assertEquals(groupCount - 1, newGroupCount);
+        var oldGroups = app.groups().getList();
+        //в старом списке берем какой-то объект, который будет соответствовать удаляемой группе
+        //для этого используем генератор случайных чисел
+        var rnd = new Random();
+        //выбираем какой-нибудь индекс в диапазоне от 0 до oldGroups.size()
+        //т.е. случайно выбираем индекс какого-то элемента из списка oldGroups
+        var index = rnd.nextInt(oldGroups.size());
+        //метод removeGroup будет удалять именно эту группу
+        app.groups().removeGroup(oldGroups.get(index));
+        //после удаления группы получаем новый список групп
+        var newGroups = app.groups().getList();
+        //после удаления группы мы должны построить список, с которым будем сравнивать список newGroups
+        //строим копию списка oldGroups
+        var expectedList = new ArrayList<>(oldGroups);
+        //удаляем элемент с заданным индексом
+        expectedList.remove(index);
+        //сравнить списки
+        Assertions.assertEquals(newGroups, expectedList);
     }
 
     @Test

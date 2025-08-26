@@ -24,6 +24,6 @@ public record Group(String id, String name, String header, String footer) {
     }
 
     public Group withId(String id) {
-        return new Group((id, this.name, this.header, this.footer))
+        return new Group(id, this.name, this.header, this.footer);
     }
 }
