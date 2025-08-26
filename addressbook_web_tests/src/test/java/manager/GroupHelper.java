@@ -3,6 +3,9 @@ package manager;
 import model.Group;
 import org.openqa.selenium.By;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GroupHelper extends HelperBase {
 
     public GroupHelper(ApplicationManager manager) {
@@ -102,5 +105,24 @@ public class GroupHelper extends HelperBase {
         for (var checkbox: checkboxes) {
             checkbox.click();
         }
+    }
+
+    public List<Group> getList() {
+        //пустой список, в который будем складывать группы
+        var groups = new ArrayList<Group>();
+        //ищем элементы по селектору - ищем по всей странице элементы с тэгом span, которые имеют класс group
+        var spans = manager.driver.findElements(By.cssSelector("span.group"));
+        //устраиваем цикл по найденным элементам
+        for(var span : spans){
+            //получаем название группы
+            var name = span.getText();
+            //находим чекбокс, выполняя поиск внутри элемента span по имени "selected[]"
+            var checkbox = span.findElement(By.name("selected[]"));
+            //получаем из чекбокса идентификатор (получить значение атрибута value)
+            var id = checkbox.getAttribute("value");
+            //добавить в список групп новый объект с заданным именем и идентификатором
+            groups.add(new Group().withId(id).withName(name));
+        }
+        return groups;
     }
 }
