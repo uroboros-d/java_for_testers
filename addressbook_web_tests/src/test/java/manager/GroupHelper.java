@@ -22,14 +22,14 @@ public class GroupHelper extends HelperBase {
 
     public void removeGroup(Group group) {
         openGroupsPage();
-        selectGroup();
+        selectGroup(group);
         removeSelectedGroups();
         returnToGroupsPage();
     }
 
     public void modifyGroup(Group modifiedGroup) {
         openGroupsPage();               //открыть страницу со списком групп
-        selectGroup();                  //выбрать группу - отметить ее галочкой
+        selectGroup(null);                  //выбрать группу - отметить ее галочкой
         initGroupModification();        //нажать кнопку модификации
         fillGroupForm(modifiedGroup);   //заполнить форму данными из объекта. переданного в кач-ве параметра в метод
         submitGroupModification();      //нажать кнопку подтверждения изменения
@@ -82,8 +82,8 @@ public class GroupHelper extends HelperBase {
         click(By.name("edit"));
     }
 
-    private void selectGroup() {
-        click(By.name("selected[]"));
+    private void selectGroup(Group group) {
+                click(By.cssSelector(String.format("input[value='%s']", group.id())));
     }
 
     public int getCount() {
