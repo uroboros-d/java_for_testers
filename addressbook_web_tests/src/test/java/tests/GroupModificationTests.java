@@ -1,9 +1,11 @@
 package tests;
 
 import model.Group;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 
 public class GroupModificationTests extends TestBase {
@@ -30,13 +32,15 @@ public class GroupModificationTests extends TestBase {
         expectedList.set(index, testData.withId(oldGroups.get(index).id()));
         //сейчас оба списка отсортируем по идентификаторам
         //o1 и о2 - 2 параметра ф-ции типа Group
-        newGroups.sort(((o1, o2) -> {
+        Comparator<Group> compareById = (o1, o2) -> {
             //compare вернет 1,если первый объект больше
             //вернет -1,если первый объект меньше
             //вернет 0,если объекты равны
             //сравниваем идентификаторы групп, но они строки, поэтому парсим их в числа
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
-        }));
-
+        };
+        newGroups.sort(compareById);
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newGroups, expectedList);
     }
 }
