@@ -3,6 +3,9 @@ package manager;
 import model.Contact;
 import org.openqa.selenium.By;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ContactHelper extends HelperBase {
 
     public ContactHelper(ApplicationManager manager) {
@@ -21,11 +24,6 @@ public class ContactHelper extends HelperBase {
         fillContactForm(contact);
         submitContactCreation();
         goToHomePage();
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException("Pause");
-//        }
     }
 
     public void removeContact() {
@@ -79,5 +77,12 @@ public class ContactHelper extends HelperBase {
 
     public boolean isContactPresent() {
         return manager.isElementPresent(By.name("selected[]"));
+    }
+
+    public List<Contact> getList() {
+        //пустой список, куда будем складывать контакты
+        var contacts = new ArrayList<Contact>();
+
+        return contacts;
     }
 }
