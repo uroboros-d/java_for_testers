@@ -108,6 +108,7 @@ public class GroupHelper extends HelperBase {
     }
 
     public List<Group> getList() {
+        openGroupsPage();
         //пустой список, в который будем складывать группы
         var groups = new ArrayList<Group>();
         //ищем элементы по селектору - ищем по всей странице элементы с тэгом span, которые имеют класс group
