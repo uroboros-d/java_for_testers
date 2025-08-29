@@ -10,7 +10,7 @@ public class ContactRemovalTests extends TestBase {
         if (!app.contacts().isContactPresent()) {
             app.contacts().goToAddNewPage();
             app.contacts().createContact(new Contact(
-                    "firstName",
+                    "", "firstName",
                     "lastName",
                     "address",
                     "mobilePhone",
