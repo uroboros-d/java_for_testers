@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ContactHelper extends HelperBase {
 
@@ -82,7 +84,14 @@ public class ContactHelper extends HelperBase {
     public List<Contact> getList() {
         //пустой список, куда будем складывать контакты
         var contacts = new ArrayList<Contact>();
-
+        var tds = manager.driver.findElements(By.cssSelector("td.center"));
+        Pattern pattern = Pattern.compile("\\\\(([^)]+)\\\\)");
+        for (var td : tds){
+            var checkbox = td.findElement(By.name("selected[]"));
+            var id = checkbox.getAttribute("value");
+            var title = checkbox.getAttribute("title");
+            Matcher matcher = pattern.matcher(title);
+        }
         return contacts;
     }
 }
