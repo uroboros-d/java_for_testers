@@ -16,7 +16,7 @@ public class ContactCreationTests extends TestBase {
                 for (var address : List.of("", "address")) {
                     for (var email : List.of("", "email")) {
                         for (var mobile : List.of("", "mobile")) {
-                            result.add(new Contact().withFirstame(firstname).withLastame(lastname).withAddress(address).withEmail(email).withMobile(mobile));
+                            result.add(new Contact().withFirstname(firstname).withLastname(lastname).withAddress(address).withEmail(email).withMobile(mobile));
                         }
                     }
                 }
@@ -24,7 +24,7 @@ public class ContactCreationTests extends TestBase {
         }
         for (int i = 0; i < 5; i++) {
             //добавл-ся i<5 объектов типа Contact с случ сгенерир именем и фамилией
-            result.add(new Contact().withFirstame("random " + randomString(i * 10)).withLastame("random " + randomString(i * 10)));
+            result.add(new Contact().withFirstname("random " + randomString(i * 10)).withLastname("random " + randomString(i * 10)));
         }
         return result;
     }

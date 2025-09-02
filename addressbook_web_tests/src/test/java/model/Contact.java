@@ -8,11 +8,11 @@ public record Contact(String id, String firstname, String lastname, String addre
 
     //метод создает новый контакт со всеми данными контакта, к которому метод применяется,
     //кроме значения поля firstname - оно передается в методе
-    public Contact withFirstame(String firstname) {
+    public Contact withFirstname(String firstname) {
         return new Contact(this.id, firstname, this.lastname, this.address, this.email, this.mobile);
     }
 
-    public Contact withLastame(String lastname) {
+    public Contact withLastname(String lastname) {
         return new Contact(this.id, this.firstname, lastname, this.address, this.email, this.mobile);
     }
 

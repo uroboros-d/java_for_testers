@@ -5,8 +5,6 @@ import org.openqa.selenium.By;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ContactHelper extends HelperBase {
 
@@ -28,9 +26,9 @@ public class ContactHelper extends HelperBase {
         goToHomePage();
     }
 
-    public void removeContact() {
+    public void removeContact(Contact contact) {
         goToHomePage();
-        selectContact();
+        selectContact(contact);
         removeSelectedContact();
         goToHomePage();
     }
@@ -69,8 +67,10 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    private void selectContact() {
-        click(By.name("selected[]"));
+    private void selectContact(Contact contact) {
+        if (contact.id() != null && !contact.id().isEmpty()) {
+            click(By.cssSelector(String.format("input[id='%s']", contact.id())));
+        }
     }
 
     private void removeSelectedContact() {
@@ -93,7 +93,7 @@ public class ContactHelper extends HelperBase {
             var id = cells.get(0).getAttribute("id");
             var lastname = cells.get(1).getText();
             var firstname = cells.get(2).getText();
-            contacts.add(new Contact().withId(id).withLastame(lastname).withFirstame(firstname));
+            contacts.add(new Contact().withId(id).withLastname(lastname).withFirstname(firstname));
         }
         return contacts;
     }
