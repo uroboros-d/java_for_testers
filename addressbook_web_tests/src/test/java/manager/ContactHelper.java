@@ -84,13 +84,16 @@ public class ContactHelper extends HelperBase {
     public List<Contact> getList() {
         //пустой список, куда будем складывать контакты
         var contacts = new ArrayList<Contact>();
-        var tds = manager.driver.findElements(By.cssSelector("td.center"));
-        Pattern pattern = Pattern.compile("\\\\(([^)]+)\\\\)");
-        for (var td : tds){
-            var checkbox = td.findElement(By.name("selected[]"));
-            var id = checkbox.getAttribute("value");
-            var title = checkbox.getAttribute("title");
-            Matcher matcher = pattern.matcher(title);
+        //список элементов tr,найденных по name
+        var trs = manager.driver.findElements(By.name("entry"));
+        for (var tr : trs){
+//            var checkbox = tr.findElement(By.name("selected[]"));
+//            var id = checkbox.getAttribute("id");
+            var cells = tr.findElements(By.tagName("td"));
+            var id = cells.get(0).getAttribute("id");
+            var lastname = cells.get(1).getText();
+            var firstname = cells.get(2).getText();
+            contacts.add(new Contact().withId(id).withLastame(lastname).withFirstame(firstname));
         }
         return contacts;
     }
