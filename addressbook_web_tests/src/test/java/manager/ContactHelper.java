@@ -68,9 +68,7 @@ public class ContactHelper extends HelperBase {
     }
 
     private void selectContact(Contact contact) {
-        if (contact.id() != null && !contact.id().isEmpty()) {
-            click(By.cssSelector(String.format("input[id='%s']", contact.id())));
-        }
+        click(By.cssSelector(String.format("input[id='%s']", contact.id())));
     }
 
     private void removeSelectedContact() {
@@ -86,7 +84,7 @@ public class ContactHelper extends HelperBase {
         var contacts = new ArrayList<Contact>();
         //список элементов tr,найденных по name
         var trs = manager.driver.findElements(By.name("entry"));
-        for (var tr : trs){
+        for (var tr : trs) {
 //            var checkbox = tr.findElement(By.name("selected[]"));
 //            var id = checkbox.getAttribute("id");
             var cells = tr.findElements(By.tagName("td"));
