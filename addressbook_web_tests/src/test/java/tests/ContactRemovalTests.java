@@ -29,6 +29,12 @@ public class ContactRemovalTests extends TestBase {
         //выбираем случайный индекс в диапазоне 0-oldContacts.size()
         var index = rnd.nextInt(oldContacts.size());
         app.contacts().removeContact(oldContacts.get(index));
+        //пауза, иначе не отрисовывается и newContacts пустой
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Pause");
+        }
         //после удаления получаем новый список групп
         var newContacts = app.contacts().getList();
         //после удаления нужно построить список, с которым будем сравниввть список newContacts
