@@ -12,13 +12,6 @@ public class ContactHelper extends HelperBase {
         super(manager);
     }
 
-    public int getCount() {
-        //goToHomePage();
-        //функция находит не один элемент, а много и возвращает список найденных элементов,
-        //но нас интересует их кол-во, поэтому используем функцию size()
-        return manager.driver.findElements(By.name("selected[]")).size();
-    }
-
     public void createContact(Contact contact) {
         goToAddNewPage();
         fillContactForm(contact);
@@ -30,6 +23,14 @@ public class ContactHelper extends HelperBase {
         goToHomePage();
         selectContact(contact);
         removeSelectedContact();
+        goToHomePage();
+    }
+
+    public void modifyContact(Contact modifiedContact) {
+        goToHomePage();
+        initContactModification();
+        fillContactForm(modifiedContact);
+        submitContactModification();
         goToHomePage();
     }
 
@@ -79,6 +80,13 @@ public class ContactHelper extends HelperBase {
         return manager.isElementPresent(By.name("selected[]"));
     }
 
+    public int getCount() {
+        //goToHomePage();
+        //функция находит не один элемент, а много и возвращает список найденных элементов,
+        //но нас интересует их кол-во, поэтому используем функцию size()
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
     public List<Contact> getList() {
         //пустой список, куда будем складывать контакты
         var contacts = new ArrayList<Contact>();
@@ -94,21 +102,11 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
-    public void modifyContact(Contact modifiedContact) {
-        goToHomePage();
-        initContactModification();
-        fillContactForm(modifiedContact);
-        submitContactModification();
-        goToHomePage();
-    }
-
     private void initContactModification() {
-        manager.driver.findElement(By.cssSelector("img[title='Edit']")).click();
-
+        click(By.cssSelector("img[title='Edit']"));
     }
 
     private void submitContactModification() {
-        manager.driver.findElement(By.name("update")).click();
+        click(By.name("update"));
     }
-
 }

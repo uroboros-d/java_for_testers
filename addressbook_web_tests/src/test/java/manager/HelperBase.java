@@ -15,6 +15,7 @@ public class HelperBase {
 
     protected void type(By locator, String text) {
         click(locator);
+        //очищает поле для ввода новых данных
         manager.driver.findElement(locator).clear();
         manager.driver.findElement(locator).sendKeys(text);
     }
