@@ -85,8 +85,6 @@ public class ContactHelper extends HelperBase {
         //список элементов tr,найденных по name
         var trs = manager.driver.findElements(By.name("entry"));
         for (var tr : trs) {
-//            var checkbox = tr.findElement(By.name("selected[]"));
-//            var id = checkbox.getAttribute("id");
             var cells = tr.findElements(By.tagName("td"));
             var id = cells.get(0).findElement(By.tagName("input")).getAttribute("id");
             var lastname = cells.get(1).getText();
@@ -95,4 +93,22 @@ public class ContactHelper extends HelperBase {
         }
         return contacts;
     }
+
+    public void modifyContact(Contact modifiedContact) {
+        goToHomePage();
+        initContactModification();
+        fillContactForm(modifiedContact);
+        submitContactModification();
+        goToHomePage();
+    }
+
+    private void initContactModification() {
+        manager.driver.findElement(By.cssSelector("img[title='Edit']")).click();
+
+    }
+
+    private void submitContactModification() {
+        manager.driver.findElement(By.name("update")).click();
+    }
+
 }
