@@ -1,8 +1,8 @@
 package manager;
 
 import model.Contact;
-import model.Group;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -30,7 +30,6 @@ public class ContactHelper extends HelperBase {
 
     public void modifyContact(Contact contact, Contact modifiedContact) {
         goToHomePage();
-        //selectContact(contact);
         initContactModification(contact);
         fillContactForm(modifiedContact);
         submitContactModification();
@@ -39,11 +38,6 @@ public class ContactHelper extends HelperBase {
 
     public void goToAddNewPage() {
         if (!manager.isElementPresent(By.name("lastname"))) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException("Pause");
-            }
             click(By.linkText("add new"));
         }
     }
@@ -53,7 +47,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("lastname"), contact.lastname());
         type(By.name("address"), contact.address());
         type(By.name("mobile"), contact.mobile());
-        type(By.name("email"), contact.email());
+//        type(By.name("email"), contact.email());
     }
 
     private void submitContactCreation() {
@@ -90,6 +84,12 @@ public class ContactHelper extends HelperBase {
     }
 
     public List<Contact> getList() {
+        goToHomePage();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Pause");
+        }
         //пустой список, куда будем складывать контакты
         var contacts = new ArrayList<Contact>();
         //список элементов tr,найденных по name
@@ -100,14 +100,19 @@ public class ContactHelper extends HelperBase {
             var lastname = cells.get(1).getText();
             var firstname = cells.get(2).getText();
             var address = cells.get(3).getText();
-            var email = cells.get(4).findElement(By.tagName("a")).getText();
+//            try {
+//                var email = cells.get(4).findElement(By.tagName("a")).getText();
+//            } catch (NoSuchElementException exception) {
+//                System.out.println("Ссылка отсутствует в указанной ячейке.");
+//                var email = "";
+//            }
             var phone = cells.get(5).getText();
             contacts.add(new Contact()
                     .withId(id)
                     .withLastname(lastname)
                     .withFirstname(firstname)
                     .withAddress(address)
-                    .withEmail(email)
+//                    .withEmail(email)
                     .withMobile(phone));
         }
         return contacts;
