@@ -1,7 +1,9 @@
 package manager;
 
 import model.Contact;
+import model.Group;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +28,10 @@ public class ContactHelper extends HelperBase {
         goToHomePage();
     }
 
-    public void modifyContact(Contact modifiedContact) {
+    public void modifyContact(Contact contact, Contact modifiedContact) {
         goToHomePage();
-        initContactModification();
+        //selectContact(contact);
+        initContactModification(contact);
         fillContactForm(modifiedContact);
         submitContactModification();
         goToHomePage();
@@ -81,7 +84,6 @@ public class ContactHelper extends HelperBase {
     }
 
     public int getCount() {
-        //goToHomePage();
         //функция находит не один элемент, а много и возвращает список найденных элементов,
         //но нас интересует их кол-во, поэтому используем функцию size()
         return manager.driver.findElements(By.name("selected[]")).size();
@@ -97,13 +99,31 @@ public class ContactHelper extends HelperBase {
             var id = cells.get(0).findElement(By.tagName("input")).getAttribute("id");
             var lastname = cells.get(1).getText();
             var firstname = cells.get(2).getText();
-            contacts.add(new Contact().withId(id).withLastname(lastname).withFirstname(firstname));
+            var address = cells.get(3).getText();
+            var email = cells.get(4)
+                    .findElement(By.tagName("a"))
+                    .getAttribute("href")
+                    //.replaceFirst("^mailto:", "")
+                    ;
+            var phone = cells.get(5).getText();
+            contacts.add(new Contact()
+                    .withId(id)
+                    .withLastname(lastname)
+                    .withFirstname(firstname)
+                    .withAddress(address)
+                    .withEmail(email)
+                    .withMobile(phone));
         }
         return contacts;
     }
 
-    private void initContactModification() {
-        click(By.cssSelector("img[title='Edit']"));
+    private void initContactModification(Contact contact) {
+        // Формируем XPath выражение для поиска необходимого элемента
+        String xpathExpression =
+                "//tr[td/input[@name='selected[]' and @value='" + contact.id() + "']]" +
+                        "/td[a/img[@title='Edit']]";
+
+        click(By.xpath(xpathExpression));
     }
 
     private void submitContactModification() {
