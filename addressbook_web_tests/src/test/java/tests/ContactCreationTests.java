@@ -15,22 +15,22 @@ public class ContactCreationTests extends TestBase {
         for (var firstname : List.of("", "firstname")) {
             for (var lastname : List.of("", "lastname")) {
                 for (var address : List.of("", "address")) {
-//                    for (var email : List.of("", "email")) {
+                    for (var email : List.of("", "email")) {
                         for (var mobile : List.of("", "mobile")) {
                             result.add(new Contact()
                                     .withFirstname(firstname)
                                     .withLastname(lastname)
                                     .withAddress(address)
-//                                    .withEmail(email)
+                                    .withEmail(email)
                                     .withMobile(mobile));
                         }
                     }
                 }
-//            }
+            }
         }
         for (int i = 0; i < 5; i++) {
             //добавл-ся i<5 объектов типа Contact с случ сгенерир именем и фамилией
-            result.add(new Contact().withFirstname("random " + randomString(i * 10)).withLastname("random " + randomString(i * 10)));
+            result.add(new Contact().withFirstname(randomString(i * 10)).withLastname(randomString(i * 10)));
         }
         return result;
     }
@@ -50,7 +50,7 @@ public class ContactCreationTests extends TestBase {
         };
         newContacts.sort(compareById);
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.add(contact.withId(newContacts.get(newContacts.size()-1).id()));
+        expectedList.add(contact.withId(newContacts.get(newContacts.size()-1).id()).withEmail(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
     }

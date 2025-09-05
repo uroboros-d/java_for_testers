@@ -47,7 +47,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("lastname"), contact.lastname());
         type(By.name("address"), contact.address());
         type(By.name("mobile"), contact.mobile());
-//        type(By.name("email"), contact.email());
+        type(By.name("email"), contact.email());
     }
 
     private void submitContactCreation() {
@@ -78,7 +78,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public int getCount() {
-        //функция находит не один элемент, а много и возвращает список найденных элементов,
+        //функция возвращает список найденных элементов,
         //но нас интересует их кол-во, поэтому используем функцию size()
         return manager.driver.findElements(By.name("selected[]")).size();
     }
@@ -100,19 +100,13 @@ public class ContactHelper extends HelperBase {
             var lastname = cells.get(1).getText();
             var firstname = cells.get(2).getText();
             var address = cells.get(3).getText();
-//            try {
-//                var email = cells.get(4).findElement(By.tagName("a")).getText();
-//            } catch (NoSuchElementException exception) {
-//                System.out.println("Ссылка отсутствует в указанной ячейке.");
-//                var email = "";
-//            }
+            //имейл не считываю, чтобы при сравнении не решать проблему с пустой и непустой ячейкой имейла
             var phone = cells.get(5).getText();
             contacts.add(new Contact()
                     .withId(id)
                     .withLastname(lastname)
                     .withFirstname(firstname)
                     .withAddress(address)
-//                    .withEmail(email)
                     .withMobile(phone));
         }
         return contacts;

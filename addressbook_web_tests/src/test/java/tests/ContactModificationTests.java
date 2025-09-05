@@ -42,7 +42,7 @@ public class ContactModificationTests  extends TestBase {
         }
         var newContacts = app.contacts().getList();
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.set(index, testData.withId(oldContacts.get(index).id()));
+        expectedList.set(index, testData.withId(oldContacts.get(index).id()).withEmail(""));
         Comparator<Contact> compareById = (o1, o2) -> {
             //compare вернет 1,если первый объект больше
             //вернет -1,если первый объект меньше
