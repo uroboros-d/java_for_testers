@@ -27,7 +27,6 @@ public class GroupModificationTests extends TestBase {
         app.groups().modifyGroup(oldGroups.get(index), testData);
         //после модификации загружаем новый список групп
         var newGroups = app.groups().getList();
-        //строим ожидаемое значение
         var expectedList = new ArrayList<>(oldGroups);
         expectedList.set(index, testData.withId(oldGroups.get(index).id()));
         //сейчас оба списка отсортируем по идентификаторам

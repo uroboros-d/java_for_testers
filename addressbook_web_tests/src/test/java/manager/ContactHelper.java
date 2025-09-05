@@ -100,11 +100,7 @@ public class ContactHelper extends HelperBase {
             var lastname = cells.get(1).getText();
             var firstname = cells.get(2).getText();
             var address = cells.get(3).getText();
-            var email = cells.get(4)
-                    .findElement(By.tagName("a"))
-                    .getAttribute("href")
-                    //.replaceFirst("^mailto:", "")
-                    ;
+            var email = cells.get(4).findElement(By.tagName("a")).getText();
             var phone = cells.get(5).getText();
             contacts.add(new Contact()
                     .withId(id)
@@ -119,10 +115,8 @@ public class ContactHelper extends HelperBase {
 
     private void initContactModification(Contact contact) {
         // Формируем XPath выражение для поиска необходимого элемента
-        String xpathExpression =
-                "//tr[td/input[@name='selected[]' and @value='" + contact.id() + "']]" +
-                        "/td[a/img[@title='Edit']]";
-
+        String xpathExpression ="//tr[td/input[@name='selected[]' and @value='" + contact.id()
+                + "']]" + "/td[a/img[@title='Edit']]";
         click(By.xpath(xpathExpression));
     }
 

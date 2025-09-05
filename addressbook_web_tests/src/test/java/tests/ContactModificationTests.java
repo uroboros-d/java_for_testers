@@ -1,7 +1,6 @@
 package tests;
 
 import model.Contact;
-import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -20,10 +19,9 @@ public class ContactModificationTests  extends TestBase {
                     "firstName",
                     "lastName",
                     "address",
-                    "mobilePhone",
-                    "email"));
+                    "1111111",
+                    "email@email.com"));
         }
-        //загрузить список контактов с веб-страницы
         var oldContacts = app.contacts().getList();
         //выбираем случайный индекс в диапазоне 0-oldContacts.size()
         var rnd = new Random();
@@ -33,8 +31,8 @@ public class ContactModificationTests  extends TestBase {
                 .withLastname("Modified lastname")
                 .withFirstname("Modified firstname")
                 .withAddress("Modified address")
-                .withEmail("email@email.com")
-                .withMobile("Modified phone");
+                .withEmail("modifiedEmail@email.com")
+                .withMobile("1234567890");
         app.contacts().modifyContact(oldContacts.get(index),
                 testData);
         try {
@@ -45,8 +43,6 @@ public class ContactModificationTests  extends TestBase {
         var newContacts = app.contacts().getList();
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.set(index, testData.withId(oldContacts.get(index).id()));
-        //сейчас оба списка отсортируем по идентификаторам
-        //o1 и о2 - 2 параметра ф-ции типа Group
         Comparator<Contact> compareById = (o1, o2) -> {
             //compare вернет 1,если первый объект больше
             //вернет -1,если первый объект меньше
