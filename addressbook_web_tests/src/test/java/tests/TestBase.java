@@ -2,8 +2,9 @@ package tests;
 
 import manager.ApplicationManager;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.params.ParameterizedTest;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.Random;
 
 //общий базовый класс для всех тестов для хранения повторяющегося кода
@@ -34,5 +35,15 @@ public class TestBase {
             result = result + (char) ('a' + rnd.nextInt(26));
         }
         return result;
+    }
+
+    public static String randomFile(String dir){
+        //получить список файлов из указанной директории
+        var fileNames = new File(dir).list();
+        //получить случ имя из списка
+        var rnd = new Random();
+        //получить случ чмсло, не превышающее кол-во файлов
+        var index = rnd.nextInt(fileNames.length);
+        return Paths.get(dir, fileNames[index]).toString();
     }
 }

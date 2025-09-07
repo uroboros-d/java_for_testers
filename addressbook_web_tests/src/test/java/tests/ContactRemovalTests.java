@@ -17,7 +17,9 @@ public class ContactRemovalTests extends TestBase {
                     "lastName",
                     "address",
                     "mobilePhone",
-                    "email"));
+                    "email",
+                    "path"
+                    ));
         }
         //ф-ция возвращает список объектов типа Contact
         var oldContacts = app.contacts().getList();
