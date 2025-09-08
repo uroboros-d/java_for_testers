@@ -1,5 +1,6 @@
 package tests;
 
+import common.commonFunctions;
 import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -27,9 +28,9 @@ public class GroupCreationTests extends TestBase {
         for(int i=0;i<5;i++) {
             //вызывается конструктор без параметров, а потом создаются объекты с модиф св-ми
             result.add(new Group()
-                    .withName("random " + randomString(i*10))       //созд-ся объект с именем с ранд строкой
-                    .withHeader("random " + randomString(i*10))     //созд-ся объект с хэдером с ранд строкой
-                    .withFooter("random " + randomString(i*10)));   //созд-ся объект с футером с ранд строкой
+                    .withName("random " + commonFunctions.randomString(i*10))       //созд-ся объект с именем с ранд строкой
+                    .withHeader("random " + commonFunctions.randomString(i*10))     //созд-ся объект с хэдером с ранд строкой
+                    .withFooter("random " + commonFunctions.randomString(i*10)));   //созд-ся объект с футером с ранд строкой
         }
         //в этом случае при изменении конструктора (т.е. при добавлении новых свойств) код в этом месте меняться не будет
         return result;

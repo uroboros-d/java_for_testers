@@ -2,6 +2,10 @@ package generator;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import common.commonFunctions;
+import model.Group;
+
+import java.util.ArrayList;
 
 public class Generator {
     //параметр, описывающий тип генерируемых значений
@@ -45,6 +49,30 @@ public class Generator {
     }
 
     private Object generate(){
+        if("groups".equals(type)){
+            return generateGroups();
+        } else if ("contacts".equals(type)){
+            return generateContacts();
+        } else {
+            throw new IllegalArgumentException("Неизвестный тип данных " + type);
+        }
+    }
+
+    private Object generateGroups() {
+        //создаем список объектов типа Group
+        var result = new ArrayList<Group>();
+        //цикл до параметра count генерирует объекты Group и добавляет их в список
+        for (int i=0; i<count; i++){
+            result.add(new Group()
+                    .withName(commonFunctions.randomString(i*10))
+                    .withHeader(commonFunctions.randomString(i*10))
+                    .withFooter(commonFunctions.randomString(i*10)));
+        }
+        //метод возвращает список сгенерированных объектов Group
+        return result;
+    }
+
+    private Object generateContacts() {
         return null;
     }
 }
