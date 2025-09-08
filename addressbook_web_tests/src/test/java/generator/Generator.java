@@ -2,9 +2,11 @@ package generator;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import common.commonFunctions;
 import model.Group;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Generator {
@@ -46,6 +48,9 @@ public class Generator {
     }
 
     private void save(Object data) {
+        ObjectMapper mapper = new ObjectMapper();
+        //сохраняем данные data в файл, название которого сохр-ся в переменной output
+        mapper.writeValue(new File(output), data);
     }
 
     private Object generate(){
