@@ -8,6 +8,7 @@ import common.commonFunctions;
 import model.Group;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -53,8 +54,12 @@ public class Generator {
         if ("json".equals(format)) {
             ObjectMapper mapper = new ObjectMapper();
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            //сохраняем данные data в файл, название которого сохр-ся в переменной output
-            mapper.writeValue(new File(output), data);
+            //результат преобразования поместим в переменную json
+            var json = mapper.writeValueAsString(data);
+            //запишем в файл
+            try(var writer = new FileWriter(output)) {
+                writer.write(json);
+            }
         } else {
             throw new IllegalArgumentException("Неизвестный формат данных " + format);
         }
