@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import common.commonFunctions;
 import model.Group;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
