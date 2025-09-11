@@ -4,9 +4,11 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import common.commonFunctions;
 import model.Group;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,9 +58,13 @@ public class Generator {
             //результат преобразования поместим в переменную json
             var json = mapper.writeValueAsString(data);
             //запишем в файл
-            try(var writer = new FileWriter(output)) {
+            try (var writer = new FileWriter(output)) {
                 writer.write(json);
             }
+        }
+        if ("yaml".equals(format)) {
+            ObjectMapper mapper = new YAMLMapper();
+            mapper.writeValue(new File(output), data);
         } else {
             throw new IllegalArgumentException("Неизвестный формат данных " + format);
         }
