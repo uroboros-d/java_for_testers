@@ -108,7 +108,8 @@ public class Generator {
         for (int i=0; i<count; i++){
             result.add(new Contact()
                     .withLastname(commonFunctions.randomString(i*10))
-                    .withFirstname(commonFunctions.randomString(i*10)));
+                    .withFirstname(commonFunctions.randomString(i*10))
+                    );
         }
         //метод возвращает список сгенерированных объектов Contact
         return result;

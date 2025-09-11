@@ -1,19 +1,24 @@
 package tests;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import common.commonFunctions;
 import model.Contact;
+import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-    public static List<Contact> contactProvider() {
+    public static List<Contact> contactProvider() throws IOException {
         var result = new ArrayList<Contact>();
 //        for (var firstname : List.of("", "firstname")) {
 //            for (var lastname : List.of("", "lastname")) {
@@ -32,12 +37,9 @@ public class ContactCreationTests extends TestBase {
 //                }
 //            }
 //        }
-        for (int i = 0; i < 5; i++) {
-            //добавл-ся i<5 объектов типа Contact с случ сгенерир именем и фамилией
-            result.add(new Contact()
-                    .withFirstname(commonFunctions.randomString(i * 10))
-                    .withLastname(commonFunctions.randomString(i * 10)));
-        }
+        var mapper = new XmlMapper();
+        var value = mapper.readValue(new File("contacts.xml"),  new TypeReference<List<Contact>>(){});
+        result.addAll(value);
         return result;
     }
 
