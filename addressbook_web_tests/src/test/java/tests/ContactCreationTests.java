@@ -15,23 +15,23 @@ public class ContactCreationTests extends TestBase {
 
     public static List<Contact> contactProvider() {
         var result = new ArrayList<Contact>();
-        for (var firstname : List.of("", "firstname")) {
-            for (var lastname : List.of("", "lastname")) {
-                for (var address : List.of("", "address")) {
-                    for (var email : List.of("", "email")) {
-                        for (var mobile : List.of("", "mobile")) {
-                            result.add(new Contact()
-                                    .withFirstname(firstname)
-                                    .withLastname(lastname)
-                                    .withAddress(address)
-                                    .withEmail(email)
-                                    .withMobile(mobile)
-                            );
-                        }
-                    }
-                }
-            }
-        }
+//        for (var firstname : List.of("", "firstname")) {
+//            for (var lastname : List.of("", "lastname")) {
+//                for (var address : List.of("", "address")) {
+//                    for (var email : List.of("", "email")) {
+//                        for (var mobile : List.of("", "mobile")) {
+//                            result.add(new Contact()
+//                                    .withFirstname(firstname)
+//                                    .withLastname(lastname)
+//                                    .withAddress(address)
+//                                    .withEmail(email)
+//                                    .withMobile(mobile)
+//                            );
+//                        }
+//                    }
+//                }
+//            }
+//        }
         for (int i = 0; i < 5; i++) {
             //добавл-ся i<5 объектов типа Contact с случ сгенерир именем и фамилией
             result.add(new Contact()

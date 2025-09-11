@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import common.commonFunctions;
+import model.Contact;
 import model.Group;
 
 import java.io.File;
@@ -101,6 +102,15 @@ public class Generator {
     }
 
     private Object generateContacts() {
-        return null;
+        //создаем список объектов типа Group
+        var result = new ArrayList<Contact>();
+        //цикл до параметра count генерирует объекты Contact и добавляет их в список
+        for (int i=0; i<count; i++){
+            result.add(new Contact()
+                    .withLastname(commonFunctions.randomString(i*10))
+                    .withFirstname(commonFunctions.randomString(i*10)));
+        }
+        //метод возвращает список сгенерированных объектов Contact
+        return result;
     }
 }
