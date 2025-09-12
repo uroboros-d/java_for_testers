@@ -1,16 +1,12 @@
 package tests;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -54,8 +50,7 @@ public class GroupCreationTests extends TestBase {
     @ParameterizedTest
     @MethodSource("groupProvider")  //указана вспомогат ф-ция выше
     public void canCreateMultipleGroups(Group group) {
-        //получаем старый список групп
-        var oldGroups = app.groups().getList();
+        var oldGroups = app.jdbc().getGroupList();
         //создаем новую группу
         app.groups().createGroup(group);
         //получаем новый список групп
@@ -69,7 +64,6 @@ public class GroupCreationTests extends TestBase {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
         newGroups.sort(compareById);
-
         //из старого списка строим ожидаемое значение
         var expectedList = new ArrayList<>(oldGroups);
         //в конец старого списка добавляется новая группа

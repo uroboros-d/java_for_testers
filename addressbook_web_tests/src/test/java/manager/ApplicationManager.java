@@ -17,7 +17,9 @@ public class ApplicationManager {
     //ссылка для управления группой
     private GroupHelper groups;
     //ссылка для управления контактом
-    public ContactHelper contacts;
+    private ContactHelper contacts;
+
+    private JdbcHelper jdbc;
 
     //метод инициализации driver, открытия браузера, открытия в браузере нужной страницы, логина, закрытия браузера
     public void init(String browser) {
@@ -57,6 +59,14 @@ public class ApplicationManager {
         }
         //если уже проинициализирован, то внутрь if не попадаем, а сразу возвращаем ссылку на помощника
         return contacts;
+    }
+
+    public JdbcHelper jdbc() {
+        if (jdbc == null) {
+            jdbc = new JdbcHelper(this);
+        }
+        //если уже проинициализирован, то внутрь if не попадаем, а сразу возвращаем ссылку на помощника
+        return jdbc;
     }
 
     public boolean isElementPresent(By locator) {
