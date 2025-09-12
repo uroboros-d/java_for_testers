@@ -2,9 +2,8 @@ package tests;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import common.commonFunctions;
+import common.CommonFunctions;
 import model.Contact;
-import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -66,8 +65,8 @@ public class ContactCreationTests extends TestBase {
     @Test
     void canCreateContact() {
         var contact = new Contact()
-                .withFirstname(commonFunctions.randomString(10))
-                .withLastname(commonFunctions.randomString(10))
+                .withFirstname(CommonFunctions.randomString(10))
+                .withLastname(CommonFunctions.randomString(10))
                 //получить любой файл из imagesJava
                 .withPhoto(randomFile("src/test/resources/imagesJava"));
         app.contacts().createContact(contact);

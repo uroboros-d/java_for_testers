@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
-import common.commonFunctions;
+import common.CommonFunctions;
 import model.Contact;
 import model.Group;
 
@@ -93,9 +93,9 @@ public class Generator {
         //цикл до параметра count генерирует объекты Group и добавляет их в список
         for (int i=0; i<count; i++){
             result.add(new Group()
-                    .withName(commonFunctions.randomString(i*10))
-                    .withHeader(commonFunctions.randomString(i*10))
-                    .withFooter(commonFunctions.randomString(i*10)));
+                    .withName(CommonFunctions.randomString(i*10))
+                    .withHeader(CommonFunctions.randomString(i*10))
+                    .withFooter(CommonFunctions.randomString(i*10)));
         }
         //метод возвращает список сгенерированных объектов Group
         return result;
@@ -107,8 +107,8 @@ public class Generator {
         //цикл до параметра count генерирует объекты Contact и добавляет их в список
         for (int i=0; i<count; i++){
             result.add(new Contact()
-                    .withLastname(commonFunctions.randomString(i*10))
-                    .withFirstname(commonFunctions.randomString(i*10))
+                    .withLastname(CommonFunctions.randomString(i*10))
+                    .withFirstname(CommonFunctions.randomString(i*10))
                     );
         }
         //метод возвращает список сгенерированных объектов Contact

@@ -2,6 +2,7 @@ package tests;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import common.CommonFunctions;
 import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -47,8 +48,16 @@ public class GroupCreationTests extends TestBase {
         return result;
     }
 
+    public static List<Group> singleRandomGroup() {
+        List.of(new Group()
+                .withName(CommonFunctions.randomString(10))
+                .withHeader(CommonFunctions.randomString(10))
+                .withFooter(CommonFunctions.randomString(10))
+        );
+    }
+
     @ParameterizedTest
-    @MethodSource("groupProvider")  //указана вспомогат ф-ция выше
+    @MethodSource("singleRandomGroup")  //указана вспомогат ф-ция выше
     public void canCreateMultipleGroups(Group group) {
         var oldGroups = app.jdbc().getGroupList();
         //создаем новую группу

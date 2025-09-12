@@ -2,7 +2,7 @@ package common;
 
 import java.util.Random;
 
-public class commonFunctions {
+public class CommonFunctions {
     public static String randomString(int n) {
         //n-желаемая длина генерируемой строки
         var rnd = new Random();
