@@ -1,37 +1,39 @@
 package tests;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
 import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class GroupCreationTests extends TestBase {
 
-    public static List<Group> groupProvider() {
+    public static List<Group> groupProvider() throws IOException {
         //result будет списком объектов типа Group
         var result = new ArrayList<Group>();
         //перебирает 2 комбинации названия
-        for(var name: List.of("", "name")){
-            for(var header: List.of("", "header")){
-                for(var footer: List.of("", "footer")){
-                    result.add(new Group()
-                            .withName(name)
-                            .withHeader(header)
-                            .withFooter(footer));
-                }
-            }
-        }
-        for(int i=0;i<5;i++) {
-            //вызывается конструктор без параметров, а потом создаются объекты с модиф св-ми
-            result.add(new Group()
-                    .withName("random " + CommonFunctions.randomString(i*10))       //созд-ся объект с именем с ранд строкой
-                    .withHeader("random " + CommonFunctions.randomString(i*10))     //созд-ся объект с хэдером с ранд строкой
-                    .withFooter("random " + CommonFunctions.randomString(i*10)));   //созд-ся объект с футером с ранд строкой
-        }
+//        for(var name: List.of("", "name")){
+//            for(var header: List.of("", "header")){
+//                for(var footer: List.of("", "footer")){
+//                    result.add(new Group()
+//                            .withName(name)
+//                            .withHeader(header)
+//                            .withFooter(footer));
+//                }
+//            }
+//        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        var value = mapper.readValue(new File("groups.json"), new TypeReference<List<Group>>(){});
+        result.addAll(value);
         //в этом случае при изменении конструктора (т.е. при добавлении новых свойств) код в этом месте меняться не будет
         return result;
     }
