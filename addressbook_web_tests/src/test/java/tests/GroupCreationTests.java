@@ -17,9 +17,7 @@ import java.util.List;
 public class GroupCreationTests extends TestBase {
 
     public static List<Group> groupProvider() throws IOException {
-        //result будет списком объектов типа Group
         var result = new ArrayList<Group>();
-        //перебирает 2 комбинации названия
 //        for(var name: List.of("", "name")){
 //            for(var header: List.of("", "header")){
 //                for(var footer: List.of("", "footer")){
@@ -34,7 +32,6 @@ public class GroupCreationTests extends TestBase {
         ObjectMapper mapper = new ObjectMapper();
         var value = mapper.readValue(new File("groups.json"), new TypeReference<List<Group>>(){});
         result.addAll(value);
-        //в этом случае при изменении конструктора (т.е. при добавлении новых свойств) код в этом месте меняться не будет
         return result;
     }
 

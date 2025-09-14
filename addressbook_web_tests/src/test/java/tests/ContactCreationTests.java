@@ -1,5 +1,7 @@
 package tests;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
 import model.Contact;
 import org.junit.jupiter.api.Assertions;
@@ -7,34 +9,40 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-    public static List<Contact> contactProvider() {
+    public static List<Contact> contactProvider() throws IOException {
         var result = new ArrayList<Contact>();
-        for (var firstname : List.of("", "firstname")) {
-            for (var lastname : List.of("", "lastname")) {
-                for (var address : List.of("", "address")) {
-                    for (var email : List.of("", "email")) {
-                        for (var mobile : List.of("", "mobile")) {
-                            result.add(new Contact()
-                                    .withFirstname(firstname)
-                                    .withLastname(lastname)
-                                    .withAddress(address)
-                                    .withEmail(email)
-                                    .withMobile(mobile));
-                        }
-                    }
-                }
-            }
-        }
-        for (int i = 0; i < 5; i++) {
-            //добавл-ся i<5 объектов типа Contact с случ сгенерир именем и фамилией
-            result.add(new Contact().withFirstname(CommonFunctions.randomString(i * 10)).withLastname(CommonFunctions.randomString(i * 10)));
-        }
+//        for (var firstname : List.of("", "firstname")) {
+//            for (var lastname : List.of("", "lastname")) {
+//                for (var address : List.of("", "address")) {
+//                    for (var email : List.of("", "email")) {
+//                        for (var mobile : List.of("", "mobile")) {
+//                            result.add(new Contact()
+//                                    .withFirstname(firstname)
+//                                    .withLastname(lastname)
+//                                    .withAddress(address)
+//                                    .withEmail(email)
+//                                    .withMobile(mobile));
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        for (int i = 0; i < 5; i++) {
+//            //добавл-ся i<5 объектов типа Contact с случ сгенерир именем и фамилией
+//            result.add(new Contact().withFirstname(CommonFunctions.randomString(i * 10)).withLastname(CommonFunctions.randomString(i * 10)));
+//        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        var value = mapper.readValue(new File("contacts.json"), new TypeReference<List<Contact>>(){});
+        result.addAll(value);
         return result;
     }
 
