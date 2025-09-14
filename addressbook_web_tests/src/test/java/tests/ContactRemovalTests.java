@@ -1,7 +1,9 @@
 package tests;
+
 import model.Contact;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,12 +14,15 @@ public class ContactRemovalTests extends TestBase {
         if (!app.contacts().isContactPresent()) {
             app.contacts().goToAddNewPage();
             app.contacts().createContact(new Contact(
-                    "",
-                    "firstName",
-                    "lastName",
-                    "address",
-                    "mobilePhone",
-                    "email"));
+                            "",
+                            "firstName",
+                            "lastName",
+                            "address",
+                            "mobilePhone",
+                            "email",
+                            "src/test/resources/imagesJava/avatar.jpg"
+                    )
+            );
         }
         //ф-ция возвращает список объектов типа Contact
         var oldContacts = app.contacts().getList();

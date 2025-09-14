@@ -19,8 +19,10 @@ public class ContactModificationTests  extends TestBase {
                     "firstName",
                     "lastName",
                     "address",
+                    "email@email.com",
                     "1111111",
-                    "email@email.com"));
+                    "src/test/resources/imagesJava/avatar.jpg"
+                    ));
         }
         var oldContacts = app.contacts().getList();
         //выбираем случайный индекс в диапазоне 0-oldContacts.size()
