@@ -2,6 +2,11 @@ package generator;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import model.Group;
+
+import java.util.ArrayList;
+
+import static tests.TestBase.randomString;
 
 public class Generator {
     //объявление набора св-тв, которые соотв-ют параметрам запуска
@@ -42,7 +47,15 @@ public class Generator {
     private void save(Object data) {
     }
 
-    private Object generate() {
-        return null;
+    private Object generate(){
+        //если в параметрах указано groups, то сгенерировать список групп
+        if("groups".equals(type)){
+            return generateGroups();
+        } else if ("contacts".equals(type)){
+            return generateContacts();
+        } else {
+            throw new IllegalArgumentException("Неизвестный тип данных " + type);
+        }
     }
+
 }
