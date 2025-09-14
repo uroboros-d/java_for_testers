@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static tests.TestBase.randomFile;
+
 
 public class Generator {
     //объявление набора св-тв, которые соотв-ют параметрам запуска
@@ -82,6 +84,7 @@ public class Generator {
             result.add(new Contact()
                     .withLastname(CommonFunctions.randomString(i * 10))
                     .withFirstname(CommonFunctions.randomString(i * 10))
+                    .withPhoto(randomFile("src/test/resources/imagesJava/"))
             );
         }
         //метод возвращает список сгенерированных объектов Contact

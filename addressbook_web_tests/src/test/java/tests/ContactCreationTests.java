@@ -61,17 +61,17 @@ public class ContactCreationTests extends TestBase {
         };
         newContacts.sort(compareById);
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id()).withEmail(""));
+        expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id()).withEmail("").withPhoto(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
     }
 
-    @Test
-    void canCreateContact() {
-        var contact = new Contact()
-                .withFirstname(CommonFunctions.randomString(10))
-                .withFirstname(CommonFunctions.randomString(10))
-                .withPhoto(randomFile("src/test/resources/imagesJava/"));
-        app.contacts().createContact(contact);
-    }
+//    @Test
+//    void canCreateContact() {
+//        var contact = new Contact()
+//                .withFirstname(CommonFunctions.randomString(10))
+//                .withFirstname(CommonFunctions.randomString(10))
+//                .withPhoto(randomFile("src/test/resources/imagesJava/"));
+//        app.contacts().createContact(contact);
+//    }
 }

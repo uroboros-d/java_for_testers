@@ -5,21 +5,21 @@
   "address" : "",
   "email" : "",
   "mobile" : "",
-  "photo" : ""
+  "photo" : "src/test/resources/imagesJava/очень интересно.jpeg"
 }, {
   "id" : "",
-  "firstname" : "xthqffwwig",
-  "lastname" : "xxrgnslvmr",
+  "firstname" : "lvmordvrzl",
+  "lastname" : "pxpzgzerry",
   "address" : "",
   "email" : "",
   "mobile" : "",
-  "photo" : ""
+  "photo" : "src/test/resources/imagesJava/crazy.jpg"
 }, {
   "id" : "",
-  "firstname" : "nyomjvfgnszybfrpikmr",
-  "lastname" : "fcvgxjquxiplcxmzftxp",
+  "firstname" : "ulaykmuzhqxrcrlsviqe",
+  "lastname" : "phfuvmcacjfbigalbffr",
   "address" : "",
   "email" : "",
   "mobile" : "",
-  "photo" : ""
+  "photo" : "src/test/resources/imagesJava/.DS_Store"
 } ]
