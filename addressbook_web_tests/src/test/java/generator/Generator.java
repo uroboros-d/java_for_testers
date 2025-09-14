@@ -2,29 +2,29 @@ package generator;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import model.Contact;
 import model.Group;
 
 import java.util.ArrayList;
 
-import static tests.TestBase.randomString;
 
 public class Generator {
     //объявление набора св-тв, которые соотв-ют параметрам запуска
     //св-во описывает тип генерируемых значений
     //можно будет использовать длинную запись или короткую при испльзовании этого параметра
-    @Parameter(names={"--type", "-t"})
+    @Parameter(names = {"--type", "-t"})
     String type;
 
     //св-во описывает название файла значений
-    @Parameter(names={"--output", "-o"})
+    @Parameter(names = {"--output", "-o"})
     String output;
 
     // св-во описывает формат генерируемых значений
-    @Parameter(names={"--format", "-f"})
+    @Parameter(names = {"--format", "-f"})
     String format;
 
     // св-во описывает кол-во генерируемых объектов
-    @Parameter(names={"--count", "-c"})
+    @Parameter(names = {"--count", "-c"})
     int count;
 
     public static void main(String[] args) {
@@ -38,7 +38,6 @@ public class Generator {
         generator.run();
     }
 
-
     private void run() {
         var data = generate();
         save(data);
@@ -47,15 +46,45 @@ public class Generator {
     private void save(Object data) {
     }
 
-    private Object generate(){
+    private Object generate() {
         //если в параметрах указано groups, то сгенерировать список групп
-        if("groups".equals(type)){
+        if ("groups".equals(type)) {
             return generateGroups();
-        } else if ("contacts".equals(type)){
+        } else if ("contacts".equals(type)) {
             return generateContacts();
         } else {
             throw new IllegalArgumentException("Неизвестный тип данных " + type);
         }
     }
+
+    private Object generateGroups() {
+        //создаем список объектов типа Group
+        var result = new ArrayList<Group>();
+        //цикл до параметра count генерирует объекты Group и добавляет их в список
+        for (int i = 0; i < count; i++) {
+            result.add(new Group()
+                    .withName(randomString(i * 10))
+                    .withHeader(randomString(i * 10))
+                    .withFooter(randomString(i * 10))
+            );
+        }
+        //метод возвращает список сгенерированных объектов Group
+        return result;
+    }
+
+    private Object generateContacts() {
+        //создаем список объектов типа Contact
+        var result = new ArrayList<Contact>();
+        //цикл до параметра count генерирует объекты Contact и добавляет их в список
+        for (int i = 0; i < count; i++) {
+            result.add(new Contact()
+                    .withLastname(randomString(i * 10))
+                    .withFirstname(randomString(i * 10))
+            );
+        }
+        //метод возвращает список сгенерированных объектов Contact
+        return result;
+    }
+
 
 }
