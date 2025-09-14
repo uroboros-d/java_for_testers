@@ -2,6 +2,7 @@ package generator;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import common.CommonFunctions;
 import model.Contact;
 import model.Group;
 
@@ -63,9 +64,9 @@ public class Generator {
         //цикл до параметра count генерирует объекты Group и добавляет их в список
         for (int i = 0; i < count; i++) {
             result.add(new Group()
-                    .withName(randomString(i * 10))
-                    .withHeader(randomString(i * 10))
-                    .withFooter(randomString(i * 10))
+                    .withName(CommonFunctions.randomString(i * 10))
+                    .withHeader(CommonFunctions.randomString(i * 10))
+                    .withFooter(CommonFunctions.randomString(i * 10))
             );
         }
         //метод возвращает список сгенерированных объектов Group
@@ -78,8 +79,8 @@ public class Generator {
         //цикл до параметра count генерирует объекты Contact и добавляет их в список
         for (int i = 0; i < count; i++) {
             result.add(new Contact()
-                    .withLastname(randomString(i * 10))
-                    .withFirstname(randomString(i * 10))
+                    .withLastname(CommonFunctions.randomString(i * 10))
+                    .withFirstname(CommonFunctions.randomString(i * 10))
             );
         }
         //метод возвращает список сгенерированных объектов Contact
