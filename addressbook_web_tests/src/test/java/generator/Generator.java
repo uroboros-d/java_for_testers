@@ -63,16 +63,13 @@ public class Generator {
             try (var writer = new FileWriter(output)) {
                 writer.write(json);
             }
-        }
-        if ("yaml".equals(format)) {
+        } else if ("yaml".equals(format)) {
             ObjectMapper mapper = new YAMLMapper();
             mapper.writeValue(new File(output), data);
-        }
-        if ("xml".equals(format)) {
+        } else if ("xml".equals(format)) {
             ObjectMapper mapper = new XmlMapper();
             mapper.writeValue(new File(output), data);
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Неизвестный формат данных " + format);
         }
     }
