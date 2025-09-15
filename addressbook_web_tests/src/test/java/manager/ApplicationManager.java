@@ -23,6 +23,8 @@ public class ApplicationManager {
 
     private Properties properties;
 
+    private JdbcHelper jdbc;
+
     //метод инициализации driver, открытия браузера, открытия в браузере нужной страницы, логина, закрытия браузера
     public void init(String browser, Properties properties) {
         this.properties = properties;
@@ -71,5 +73,13 @@ public class ApplicationManager {
         } catch (NoSuchElementException exception) {
             return false;
         }
+    }
+
+    public JdbcHelper jdbc() {
+        if (jdbc == null) {
+            jdbc = new JdbcHelper(this);
+        }
+        //если уже проинициализирован, то внутрь if не попадаем, а сразу возвращаем ссылку на помощника
+        return jdbc;
     }
 }
