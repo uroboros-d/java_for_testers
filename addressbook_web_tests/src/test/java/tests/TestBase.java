@@ -4,7 +4,11 @@ import manager.ApplicationManager;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Properties;
 import java.util.Random;
 
 //общий базовый класс для всех тестов для хранения повторяющегося кода
@@ -15,13 +19,18 @@ public class TestBase {
 
     @BeforeEach
     // в setUp выполняются предусловия
-    public void setUp() {
+    public void setUp() throws IOException {
         //инициализация ссылки на ApplicationManager
         if (app == null) {      // если инициализация еще не выполнялась
+            var properties = new Properties();
+            //прочесть из файла
+            //использовать фиксир значение имени конф файла не вариант
+            // - его имя будет меняться когда мы будем менять конфигурай файлы при запуске приложения
+            properties.load(new FileReader(System.getProperty("target", "local.properties")));
             app = new ApplicationManager();
+            //приложение запускать в браузере, указанном в browser, или в дефолтном firefox
+            app.init(System.getProperty("browser", "firefox"),properties);
         }
-        //приложение запускать в браузере, указанном в browser, или в дефолтном firefox
-        app.init(System.getProperty("browser", "firefox"));
     }
 
     //принимает путь к директоири, а возвращает путь к рандоному файлу

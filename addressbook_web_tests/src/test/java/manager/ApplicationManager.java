@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.util.Properties;
+
 //класс, в котором будут методы для управления тестируемым приложением
 public class ApplicationManager {
 
@@ -17,10 +19,13 @@ public class ApplicationManager {
     //ссылка для управления группой
     private GroupHelper groups;
     //ссылка для управления контактом
-    public ContactHelper contacts;
+    private ContactHelper contacts;
+
+    private Properties properties;
 
     //метод инициализации driver, открытия браузера, открытия в браузере нужной страницы, логина, закрытия браузера
-    public void init(String browser) {
+    public void init(String browser, Properties properties) {
+        this.properties = properties;
         if (driver == null) {
             if ("firefox".equals(browser)) {
                 driver = new FirefoxDriver();
@@ -31,9 +36,9 @@ public class ApplicationManager {
                 throw new IllegalArgumentException(String.format("Unknown browser %s", browser));
             }
             Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
-            driver.get("http://localhost/addressbook/");
+            driver.get(properties.getProperty("web.baseUrl"));
             driver.manage().window().setSize(new Dimension(854, 694));
-            session().login("admin", "secret");
+            session().login(properties.getProperty("web.username"), properties.getProperty("web.password"));
         }
     }
 
