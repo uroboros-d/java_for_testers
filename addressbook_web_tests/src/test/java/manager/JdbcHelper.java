@@ -18,7 +18,7 @@ public class JdbcHelper extends HelperBase {
         var groups = new ArrayList<Group>();
         //устанавливаем соединение с бд, сохраняя его в переменную conn
         try (
-                var conn = DriverManager.getConnection("jdbc:mysql://locakhost/addressbook", "root", "");
+                var conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
                 var statement = conn.createStatement();
                 //выполняем запрос
                 var result = statement.executeQuery("SELECT group_id, group_name, group_header, group_footer FROM group_list");

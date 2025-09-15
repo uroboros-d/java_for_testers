@@ -35,15 +35,23 @@ public class GroupCreationTests extends TestBase {
         return result;
     }
 
+    public static List<Group> singleRandomGroup() {
+        return List.of(new Group()
+                .withName(CommonFunctions.randomString(10))
+                .withHeader(CommonFunctions.randomString(10))
+                .withFooter(CommonFunctions.randomString(10))
+        );
+    }
+
     @ParameterizedTest
-    @MethodSource("groupProvider")  //указана вспомогат ф-ция выше
-    public void canCreateMultipleGroups(Group group) {
+    @MethodSource("singleRandomGroup")  //указана вспомогат ф-ция выше
+    public void canCreateGroup(Group group) {
         //получаем старый список групп
         var oldGroups = app.jdbc().getGroupList();
         //создаем новую группу
         app.groups().createGroup(group);
         //получаем новый список групп
-        var newGroups = app.groups().getList();
+        var newGroups = app.jdbc().getGroupList();
         //сортируем новую группу
         Comparator<Group> compareById = (o1, o2) -> {
             //compare вернет 1,если первый объект больше
@@ -53,13 +61,16 @@ public class GroupCreationTests extends TestBase {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
         newGroups.sort(compareById);
+        var maxId = newGroups.get(newGroups.size() - 1).id();
 
         //из старого списка строим ожидаемое значение
         var expectedList = new ArrayList<>(oldGroups);
         //в конец старого списка добавляется новая группа
-        expectedList.add(group.withId(newGroups.get(newGroups.size() - 1).id()).withHeader("").withFooter(""));
+        expectedList.add(group.withId(maxId));
         expectedList.sort(compareById);
         Assertions.assertEquals(newGroups, expectedList);
+
+        //var newUiGroups = app.groups().getList();
     }
 
     public static List<Group> negativeGroupProvider() {
