@@ -39,7 +39,7 @@ public class GroupCreationTests extends TestBase {
     @MethodSource("groupProvider")  //указана вспомогат ф-ция выше
     public void canCreateMultipleGroups(Group group) {
         //получаем старый список групп
-        var oldGroups = app.groups().getList();
+        var oldGroups = app.jdbc().getGroupList();
         //создаем новую группу
         app.groups().createGroup(group);
         //получаем новый список групп
