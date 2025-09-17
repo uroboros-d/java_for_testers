@@ -20,11 +20,11 @@ public class HibernateHelper extends HelperBase {
         sessionFactory = new Configuration()
 //                        .addAnnotatedClass(Book.class)
                         .addAnnotatedClass(GroupRecord.class)
-                .setProperty(AvailableSettings.JAKARTA_JDBC_URL,
+                .setProperty(AvailableSettings.URL,
                         "jdbc:mysql://localhost/addressbook")
                 // Credentials
-                .setProperty(AvailableSettings.JAKARTA_JDBC_USER, "root")
-                .setProperty(AvailableSettings.JAKARTA_JDBC_PASSWORD, "")
+                .setProperty(AvailableSettings.USER, "root")
+                .setProperty(AvailableSettings.PASS, "")
                 .buildSessionFactory();
     }
 
@@ -32,13 +32,19 @@ public class HibernateHelper extends HelperBase {
     static List<Group> convertList(List<GroupRecord> records) {
         List<Group> result = new ArrayList<>();
         for (var record : records) {
-            result.add(new Group("" + record.id, record.name, record.header, record.footer));
+            result.add(convert(record));
         }
+        return result;
+    }
+
+    //конвертирует 1 запись в объект Group
+    private static Group convert(GroupRecord record) {
+        return new Group("" + record.id, record.name, record.header, record.footer);
     }
 
     public List<Group> getGroupList() {
-        return sessionFactory.fromSession(session -> {
+        return convertList(sessionFactory.fromSession(session -> {
             return session.createQuery("from GroupRecord", GroupRecord.class).list();
-        });
+        }));
     }
 }
