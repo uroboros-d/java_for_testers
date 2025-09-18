@@ -12,10 +12,10 @@ public class GroupModificationTests extends TestBase {
 
     @Test
     void canModifyGroup() {
-        if (app.groups().getCount() == 0) {
-            app.groups().createGroup(new Group("", "With All Properties", "header", "footer"));
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new Group("", "name", "header", "footer"));
         }
-        var oldGroups = app.groups().getList();
+        var oldGroups = app.hbm().getGroupList();
         //в старом списке берем какой-то объект, который будет соответствовать удаляемой группе
         //для этого используем генератор случайных чисел
         var rnd = new Random();
@@ -26,7 +26,7 @@ public class GroupModificationTests extends TestBase {
         var testData = new Group().withName("Modified Name");
         app.groups().modifyGroup(oldGroups.get(index), testData);
         //после модификации загружаем новый список групп
-        var newGroups = app.groups().getList();
+        var newGroups = app.hbm().getGroupList();
         var expectedList = new ArrayList<>(oldGroups);
         expectedList.set(index, testData.withId(oldGroups.get(index).id()));
         //сейчас оба списка отсортируем по идентификаторам
