@@ -43,6 +43,10 @@ public class HibernateHelper extends HelperBase {
     }
 
     private static GroupRecord convert(Group group) {
+        var id = group.id();
+        if ("".equals(id)) {
+            id = "0";
+        }
         return new GroupRecord(Integer.parseInt(group.id()), group.name(), group.header(), group.footer());
     }
 
@@ -60,7 +64,9 @@ public class HibernateHelper extends HelperBase {
 
     public void createGroup(Group group) {
         sessionFactory.inSession(session -> {
-            session.persist();
+            session.getTransaction().begin();
+            session.persist(convert(group));
+            session.getTransaction().commit();
         });
     }
 }
