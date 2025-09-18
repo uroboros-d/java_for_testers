@@ -11,26 +11,24 @@ public class GroupRemovalTests extends TestBase {
 
     @Test
     public void canRemoveGroup() {
-        if (app.groups().getCount() == 0) {
-            app.groups().createGroup(new Group("", "test name", "test header", "test footer"));
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new Group("", "test name", "test header", "test footer"));
         }
-        var oldGroups = app.groups().getList();
+        var oldGroups = app.hbm().getGroupList();
         //в старом списке берем какой-то объект, который будет соответствовать удаляемой группе
-        //для этого используем генератор случайных чисел
         var rnd = new Random();
         //выбираем какой-нибудь индекс в диапазоне от 0 до oldGroups.size()
-        //т.е. случайно выбираем индекс какого-то элемента из списка oldGroups
         var index = rnd.nextInt(oldGroups.size());
         //метод removeGroup будет удалять именно эту группу
         app.groups().removeGroup(oldGroups.get(index));
         //после удаления группы получаем новый список групп
-        var newGroups = app.groups().getList();
+        var newGroups = app.hbm().getGroupList();
         //после удаления группы мы должны построить список, с которым будем сравнивать список newGroups
         //строим копию списка oldGroups
         var expectedList = new ArrayList<>(oldGroups);
         //удаляем элемент с заданным индексом
         expectedList.remove(index);
-        //сравнить списки
+        //сравниваем списки
         Assertions.assertEquals(newGroups, expectedList);
     }
 
