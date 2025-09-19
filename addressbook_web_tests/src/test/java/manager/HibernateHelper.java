@@ -1,5 +1,6 @@
 package manager;
 import manager.hbm.GroupRecord;
+import model.Contact;
 import model.Group;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
@@ -18,11 +19,9 @@ public class HibernateHelper extends HelperBase {
         super(manager);
 
         sessionFactory = new Configuration()
-//                        .addAnnotatedClass(Book.class)
-                        .addAnnotatedClass(GroupRecord.class)
-                .setProperty(AvailableSettings.URL,
-                        "jdbc:mysql://localhost/addressbook")
-                // Credentials
+//              .addAnnotatedClass(Book.class)
+                .addAnnotatedClass(GroupRecord.class)
+                .setProperty(AvailableSettings.URL, "jdbc:mysql://localhost/addressbook")
                 .setProperty(AvailableSettings.USER, "root")
                 .setProperty(AvailableSettings.PASS, "")
                 .buildSessionFactory();
@@ -68,5 +67,11 @@ public class HibernateHelper extends HelperBase {
             session.persist(convert(group));
             session.getTransaction().commit();
         });
+    }
+
+    public List<Contact> getContactList() {
+        return convertList(sessionFactory.fromSession(session -> {
+            return session.createQuery("from ContactRecord", ContactRecord.class).list();
+        }));
     }
 }
