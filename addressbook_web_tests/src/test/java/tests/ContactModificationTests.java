@@ -17,11 +17,13 @@ public class ContactModificationTests  extends TestBase {
             app.contacts().createContact(new Contact(
                     "",
                     "firstName",
+                    "middleName",
                     "lastName",
                     "address",
                     "email@email.com",
                     "1111111",
-                    "src/test/resources/imagesJava/avatar.jpg"
+                    "src/test/resources/imagesJava/avatar.jpg",
+                    "company"
                     ));
         }
         var oldContacts = app.contacts().getList();

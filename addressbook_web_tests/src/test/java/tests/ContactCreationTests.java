@@ -46,10 +46,10 @@ public class ContactCreationTests extends TestBase {
         return result;
     }
 
-    @ParameterizedTest
+        @ParameterizedTest
     @MethodSource("contactProvider")  //указана вспомогат ф-ция выше
     public void canCreateMultipleContacts(Contact contact) {
-        var oldContacts = app.contacts().getList();
+        var oldContacts = app.jdbc().getContactList();
         app.contacts().createContact(contact);
         var newContacts = app.contacts().getList();
         Comparator<Contact> compareById = (o1, o2) -> {
@@ -65,6 +65,26 @@ public class ContactCreationTests extends TestBase {
         expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
     }
+
+    //    @ParameterizedTest
+//    @MethodSource("contactProvider")  //указана вспомогат ф-ция выше
+//    public void canCreateMultipleContacts(Contact contact) {
+//        var oldContacts = app.contacts().getList();
+//        app.contacts().createContact(contact);
+//        var newContacts = app.contacts().getList();
+//        Comparator<Contact> compareById = (o1, o2) -> {
+//            //compare вернет 1,если первый объект больше
+//            //вернет -1,если первый объект меньше
+//            //вернет 0,если объекты равны
+//            //сравниваем идентификаторы групп, но они строки, поэтому парсим их в числа
+//            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+//        };
+//        newContacts.sort(compareById);
+//        var expectedList = new ArrayList<>(oldContacts);
+//        expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id()).withEmail("").withPhoto(""));
+//        expectedList.sort(compareById);
+//        Assertions.assertEquals(newContacts, expectedList);
+//    }
 
 //    @Test
 //    void canCreateContact() {

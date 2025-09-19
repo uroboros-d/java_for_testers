@@ -16,11 +16,13 @@ public class ContactRemovalTests extends TestBase {
             app.contacts().createContact(new Contact(
                             "",
                             "firstName",
+                            "middleName",
                             "lastName",
                             "address",
                             "mobilePhone",
                             "email",
-                            "src/test/resources/imagesJava/avatar.jpg"
+                            "src/test/resources/imagesJava/avatar.jpg",
+                            "company"
                     )
             );
         }

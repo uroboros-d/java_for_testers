@@ -1,5 +1,6 @@
 package manager;
 
+import model.Contact;
 import model.Group;
 
 import java.sql.DriverManager;
@@ -37,6 +38,32 @@ public class JdbcHelper extends HelperBase {
             throw new RuntimeException(e);
         }
         return groups;
+    }
+
+    public List<Contact> getContactList() {
+        var contacts = new ArrayList<Contact>();
+        try (
+                var conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
+                var statement = conn.createStatement();
+                //выполняем запрос
+                var result = statement.executeQuery("SELECT id, firstname, middlename, lastname, company, address FROM addressbook");
+        ) {
+            while (result.next()) {
+                //извлечь данные из табл и добавить в список новый объект с полями
+                contacts.add(new Contact()
+                        //получить значение столбца group_id
+                        .withId(result.getString("group_id"))
+                        .withFirstname(result.getString("firstname"))
+                        .withMiddlename(result.getString("middlename"))
+                        .withLastname(result.getString("lastname"))
+                        .withCompany(result.getString("company"))
+                        .withAddress(result.getString("address"))
+                );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return contacts;
     }
 }
 
