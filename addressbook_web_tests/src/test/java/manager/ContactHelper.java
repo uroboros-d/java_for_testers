@@ -44,11 +44,13 @@ public class ContactHelper extends HelperBase {
 
     private void fillContactForm(Contact contact) {
         type(By.name("firstname"), contact.firstname());
+        type(By.name("middlename"), contact.middlename());
         type(By.name("lastname"), contact.lastname());
         type(By.name("address"), contact.address());
         type(By.name("mobile"), contact.mobile());
         type(By.name("email"), contact.email());
-        attach(By.name("photo"), contact.photo());
+        type(By.name("company"), contact.company());
+//        attach(By.name("photo"), contact.photo());
     }
 
     private void submitContactCreation() {

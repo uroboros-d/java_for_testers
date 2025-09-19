@@ -45,19 +45,20 @@ public class JdbcHelper extends HelperBase {
         try (
                 var conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
                 var statement = conn.createStatement();
-                //выполняем запрос
-                var result = statement.executeQuery("SELECT id, firstname, middlename, lastname, company, address FROM addressbook");
+                var result = statement.executeQuery("SELECT id, firstname, middlename, lastname, company, address, email, mobile, company FROM addressbook");
         ) {
+            //проходим по каждой строке таблицы
             while (result.next()) {
-                //извлечь данные из табл и добавить в список новый объект с полями
+                //извлечь данные и добавить в список новый объект с этими данными
                 contacts.add(new Contact()
-                        //получить значение столбца group_id
-                        .withId(result.getString("group_id"))
+                        .withId(result.getString("id"))
                         .withFirstname(result.getString("firstname"))
                         .withMiddlename(result.getString("middlename"))
                         .withLastname(result.getString("lastname"))
                         .withCompany(result.getString("company"))
                         .withAddress(result.getString("address"))
+                        .withEmail(result.getString("email"))
+                        .withMobile(result.getString("mobile"))
                 );
             }
         } catch (SQLException e) {

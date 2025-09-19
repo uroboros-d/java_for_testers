@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
 import model.Contact;
+import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -46,12 +47,25 @@ public class ContactCreationTests extends TestBase {
         return result;
     }
 
+    public static List<Contact> singleRandomContact() {
+        return List.of(new Contact()
+                .withFirstname(CommonFunctions.randomString(10))
+                .withMiddlename(CommonFunctions.randomString(10))
+                .withLastname(CommonFunctions.randomString(10))
+                .withEmail(CommonFunctions.randomString(10))
+                .withCompany(CommonFunctions.randomString(10))
+                .withMobile(CommonFunctions.randomString(10))
+                .withAddress(CommonFunctions.randomString(10))
+//                .withPhoto(randomFile("src/test/resources/imagesJava/"))
+        );
+    }
+
         @ParameterizedTest
-    @MethodSource("contactProvider")  //указана вспомогат ф-ция выше
-    public void canCreateMultipleContacts(Contact contact) {
+    @MethodSource("singleRandomContact")  //указана вспомогат ф-ция выше
+    public void canCreateContact(Contact contact) {
         var oldContacts = app.jdbc().getContactList();
         app.contacts().createContact(contact);
-        var newContacts = app.contacts().getList();
+        var newContacts = app.jdbc().getContactList();
         Comparator<Contact> compareById = (o1, o2) -> {
             //compare вернет 1,если первый объект больше
             //вернет -1,если первый объект меньше
@@ -60,8 +74,9 @@ public class ContactCreationTests extends TestBase {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
         newContacts.sort(compareById);
+        var maxId = newContacts.get(newContacts.size() - 1).id();
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id()).withEmail("").withPhoto(""));
+        expectedList.add(contact.withId(maxId).withPhoto(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
     }
