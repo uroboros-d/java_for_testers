@@ -1,4 +1,5 @@
 package manager;
+import manager.hbm.ContactRecord;
 import manager.hbm.GroupRecord;
 import model.Contact;
 import model.Group;
@@ -19,7 +20,7 @@ public class HibernateHelper extends HelperBase {
         super(manager);
 
         sessionFactory = new Configuration()
-//              .addAnnotatedClass(Book.class)
+                .addAnnotatedClass(ContactRecord.class)
                 .addAnnotatedClass(GroupRecord.class)
                 .setProperty(AvailableSettings.URL, "jdbc:mysql://localhost/addressbook")
                 .setProperty(AvailableSettings.USER, "root")
@@ -70,8 +71,21 @@ public class HibernateHelper extends HelperBase {
     }
 
     public List<Contact> getContactList() {
-        return convertList(sessionFactory.fromSession(session -> {
+        return convertContactList(sessionFactory.fromSession(session -> {
             return session.createQuery("from ContactRecord", ContactRecord.class).list();
         }));
+    }
+
+    //преобразует список объектов ContactRecord в список объектов Contact
+    static List<Contact> convertContactList(List<ContactRecord> records) {
+        List<Contact> result = new ArrayList<>();
+        for (var record : records) {
+            result.add(convertContact(record));
+        }
+        return result;
+    }
+
+    private static Contact convertContact(ContactRecord record) {
+        return new Contact("" + record.id, record.firstname, record.middlename, record.lastname, record.address, record.email, record.company, record.mobile, record.photo);
     }
 }
