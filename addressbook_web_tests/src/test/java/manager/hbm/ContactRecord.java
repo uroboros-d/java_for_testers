@@ -21,6 +21,15 @@ public class ContactRecord {
     public String email;
     public String photo;
 
+//    public String nickname = "";
+//    public String title = "";
+//    public String home = "";
+//    public String work = "";
+//    public String fax = "";
+//    public String email2 = "";
+//    public String email3 = "";
+//    public String homepage = "";
+
 //    public Date deprecated = new Date();
 
     public ContactRecord() {}
