@@ -69,6 +69,11 @@ public class ContactHelper extends HelperBase {
     }
 
     private void selectContact(Contact contact) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Pause");
+        }
         click(By.cssSelector(String.format("input[id='%s']", contact.id())));
     }
 

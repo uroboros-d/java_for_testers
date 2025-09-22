@@ -11,23 +11,24 @@ public class ContactRemovalTests extends TestBase {
 
     @Test
     public void canRemoveContact() {
-        if (!app.contacts().isContactPresent()) {
+        if (app.hbm().getContactCount() == 0) {
             app.contacts().goToAddNewPage();
-            app.contacts().createContact(new Contact(
-                            "",
-                            "firstName",
-                            "middleName",
-                            "lastName",
-                            "address",
-                            "mobilePhone",
-                            "email",
-                            "src/test/resources/imagesJava/avatar.jpg",
-                            "company"
+            app.hbm().createContact(new Contact(
+                     "",
+                    "firstName",
+                    "middleName",
+                    "lastName",
+                    "company",
+                    "address",
+                    "mobilePhone",
+                    "email",
+                    "src/test/resources/imagesJava/avatar.jpg"
+//порядок полей в коде должен быть как порядок полей в табл бд
                     )
             );
         }
         //ф-ция возвращает список объектов типа Contact
-        var oldContacts = app.contacts().getList();
+        var oldContacts = app.hbm().getContactList();
         //в старом списке выбираем рандомный контакт, подлежащий удалению
         //создаем генератор случ чисел
         var rnd = new Random();
@@ -41,9 +42,8 @@ public class ContactRemovalTests extends TestBase {
             throw new RuntimeException("Pause");
         }
         //после удаления получаем новый список групп
-        var newContacts = app.contacts().getList();
+        var newContacts = app.hbm().getContactList();
         //после удаления нужно построить список, с которым будем сравниввть список newContacts
-        //делаем копию старого списка
         var expectedList = new ArrayList<>(oldContacts);
         //удаляем элемент с заданным индексом
         expectedList.remove(index);
