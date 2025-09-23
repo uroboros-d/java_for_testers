@@ -1,5 +1,6 @@
 package tests;
 
+import common.CommonFunctions;
 import model.Contact;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,31 +13,37 @@ public class ContactModificationTests  extends TestBase {
 
     @Test
     void canModifyContact() {
-        if (!app.contacts().isContactPresent()) {
+        if (app.hbm().getContactCount() == 0) {
             app.contacts().goToAddNewPage();
-            app.contacts().createContact(new Contact(
-                    "",
-                    "firstName",
-                    "middleName",
-                    "lastName",
-                    "address",
-                    "email@email.com",
-                    "1111111",
-                    "src/test/resources/imagesJava/avatar.jpg",
-                    "company"
-                    ));
+            app.hbm().createContact(new Contact(
+                            "",
+                            "firstName",
+                            "middleName",
+                            "lastName",
+                            "company",
+                            "address",
+                            "mobilePhone",
+                            "email",
+                            ""
+//порядок полей в коде должен быть как порядок полей в табл бд
+                    )
+            );
         }
-        var oldContacts = app.contacts().getList();
+        var oldContacts = app.hbm().getContactList();
         //выбираем случайный индекс в диапазоне 0-oldContacts.size()
         var rnd = new Random();
         var index = rnd.nextInt(oldContacts.size());
         //модифицируем контакт с случ индексом index
         var testData = new Contact()
-                .withLastname("Modified lastname")
-                .withFirstname("Modified firstname")
-                .withAddress("Modified address")
-                .withEmail("modifiedEmail@email.com")
-                .withMobile("1234567890");
+                .withLastname(CommonFunctions.randomString(10))
+                .withMiddlename(CommonFunctions.randomString(10))
+                .withFirstname(CommonFunctions.randomString(10))
+                .withCompany(CommonFunctions.randomString(10))
+                .withAddress(CommonFunctions.randomString(10))
+                .withEmail(CommonFunctions.randomString(10))
+                .withMobile(CommonFunctions.randomString(10))
+                .withPhoto("")
+                ;
         app.contacts().modifyContact(oldContacts.get(index),
                 testData);
         try {
@@ -44,9 +51,9 @@ public class ContactModificationTests  extends TestBase {
         } catch (InterruptedException e) {
             throw new RuntimeException("Pause");
         }
-        var newContacts = app.contacts().getList();
+        var newContacts = app.hbm().getContactList();
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.set(index, testData.withId(oldContacts.get(index).id()).withEmail(""));
+        expectedList.set(index, testData.withId(oldContacts.get(index).id()));
         Comparator<Contact> compareById = (o1, o2) -> {
             //compare вернет 1,если первый объект больше
             //вернет -1,если первый объект меньше

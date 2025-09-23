@@ -122,6 +122,11 @@ public class ContactHelper extends HelperBase {
 
     private void initContactModification(Contact contact) {
         // Формируем XPath выражение для поиска необходимого элемента
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Pause");
+        }
         String xpathExpression ="//tr[td/input[@name='selected[]' and @value='" + contact.id()
                 + "']]" + "/td[a/img[@title='Edit']]";
         click(By.xpath(xpathExpression));

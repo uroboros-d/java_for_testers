@@ -89,11 +89,6 @@ public class HibernateHelper extends HelperBase {
         return new Contact("" + record.id, record.firstname, record.middlename, record.lastname, record.address, record.email, record.mobile, record.photo, record.company);
     }
 
-
-
-
-
-
     private static ContactRecord convertContact(Contact data) {
         var id = data.id();
         if("".equals(id)) {
