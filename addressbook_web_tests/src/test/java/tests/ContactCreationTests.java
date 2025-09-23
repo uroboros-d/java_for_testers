@@ -56,7 +56,7 @@ public class ContactCreationTests extends TestBase {
                 .withCompany(CommonFunctions.randomString(10))
                 .withMobile(CommonFunctions.randomString(10))
                 .withAddress(CommonFunctions.randomString(10))
-//                .withPhoto(randomFile("src/test/resources/imagesJava/"))
+//                .withPhoto(randomFile("src/test/resources/imagesJava/avatar.jpg"))
         );
     }
 
@@ -80,6 +80,22 @@ public class ContactCreationTests extends TestBase {
         expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
     }
+
+     void canCreateContactInGroup() {
+        var contact = new Contact()
+                .withFirstname(CommonFunctions.randomString(10))
+                .withLastname(CommonFunctions.randomString(10))
+                .withPhoto(randomFile("src/test/resources/imagesJava/avatar.jpg"));
+         if (app.hbm().getGroupCount() == 0) {
+             app.hbm().createGroup(new Group("", "test name", "test header", "test footer"));
+         }
+         var group = app.hbm().getGroupList().get(0);
+
+         var oldRelated = app.hbm().getContactsInGroup(group);
+         app.contacts().createContact(contact, group);
+         var newRelated = app.hbm().getContactsInGroup(group);
+         Assertions.assertEquals(oldRelated.size() +1 , newRelated.size());
+     }
 
     //    @ParameterizedTest
 //    @MethodSource("contactProvider")  //указана вспомогат ф-ция выше
