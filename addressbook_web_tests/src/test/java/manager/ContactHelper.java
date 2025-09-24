@@ -1,6 +1,5 @@
 package manager;
 
-import jdk.nio.zipfs.ZipFileAttributeView;
 import model.Contact;
 import model.Group;
 import org.openqa.selenium.By;

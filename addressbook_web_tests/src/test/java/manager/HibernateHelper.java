@@ -22,7 +22,7 @@ public class HibernateHelper extends HelperBase {
         sessionFactory = new Configuration()
                 .addAnnotatedClass(ContactRecord.class)
                 .addAnnotatedClass(GroupRecord.class)
-                .setProperty(AvailableSettings.URL, "jdbc:mysql://localhost/addressbook")
+                .setProperty(AvailableSettings.URL, "jdbc:mysql://localhost/addressbook?zeroDateTimeBehavior=convertToNull")
                 .setProperty(AvailableSettings.USER, "root")
                 .setProperty(AvailableSettings.PASS, "")
                 .buildSessionFactory();
@@ -108,6 +108,12 @@ public class HibernateHelper extends HelperBase {
             session.getTransaction().begin();
             session.persist(convertContact(contact));
             session.getTransaction().commit();
+        });
+    }
+
+    public List <Contact> getContactsInGroup(Group group) {
+        return sessionFactory.fromSession(session -> {
+            return convertContactList(session.get(GroupRecord.class, group.id()).contacts);
         });
     }
 }

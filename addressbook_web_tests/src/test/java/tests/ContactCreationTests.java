@@ -81,14 +81,16 @@ public class ContactCreationTests extends TestBase {
         Assertions.assertEquals(newContacts, expectedList);
     }
 
-     void canCreateContactInGroup() {
+    @Test
+    void canCreateContactInGroup() {
         var contact = new Contact()
                 .withFirstname(CommonFunctions.randomString(10))
                 .withLastname(CommonFunctions.randomString(10))
-                .withPhoto(randomFile("src/test/resources/imagesJava/avatar.jpg"));
+                .withPhoto(randomFile("src/test/resources/imagesJava/"));
          if (app.hbm().getGroupCount() == 0) {
              app.hbm().createGroup(new Group("", "test name", "test header", "test footer"));
          }
+         //получаем список групп и выбираем первую из них
          var group = app.hbm().getGroupList().get(0);
 
          var oldRelated = app.hbm().getContactsInGroup(group);
