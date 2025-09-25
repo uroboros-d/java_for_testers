@@ -51,4 +51,15 @@ public class ContactRecord {
         this.email = email;
         this.photo = photo;
     }
+
+    public ContactRecord(int id,
+                         String firstname,
+                         String lastname,
+                         String address
+    ) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.address = address;
+    }
 }

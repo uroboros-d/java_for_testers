@@ -35,6 +35,15 @@ public class ContactHelper extends HelperBase {
         new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
     }
 
+    private void selectGroupInHomePage(Group group) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Pause");
+        }
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
+    }
+
     public void removeContact(Contact contact) {
         goToHomePage();
         selectContact(contact);
@@ -51,6 +60,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void goToAddNewPage() {
+
         if (!manager.isElementPresent(By.name("lastname"))) {
             click(By.linkText("add new"));
         }
@@ -82,7 +92,7 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    private void selectContact(Contact contact) {
+    public void selectContact(Contact contact) {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -150,4 +160,14 @@ public class ContactHelper extends HelperBase {
         click(By.name("update"));
     }
 
+    private void submitContactAdding() {
+        click(By.name("add"));
+    }
+
+    public void addContactToGroup(Group group, Contact contact) {
+        goToHomePage();
+        selectContact(contact);
+        selectGroupInHomePage(group);
+        submitContactAdding();
+    }
 }

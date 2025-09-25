@@ -2,6 +2,7 @@ package tests;
 
 import common.CommonFunctions;
 import model.Contact;
+import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,6 @@ public class ContactModificationTests  extends TestBase {
     @Test
     void canModifyContact() {
         if (app.hbm().getContactCount() == 0) {
-            app.contacts().goToAddNewPage();
             app.hbm().createContact(new Contact(
                             "",
                             "firstName",
@@ -64,5 +64,33 @@ public class ContactModificationTests  extends TestBase {
         newContacts.sort(compareById);
         expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
+    }
+
+    @Test
+    void canAddContactToGroup() {
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new Contact(
+                    "",
+                    "firstName",
+                    "middleName",
+                    "lastName",
+                    "company",
+                    "address",
+                    "mobilePhone",
+                    "email",
+                    ""
+            ));
+        }
+        var contact = app.hbm().getContactList().get(0);
+
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new Group("", "test name", "test header", "test footer"));
+        }
+        var group = app.hbm().getGroupList().get(0);
+
+        var oldRelated = app.hbm().getContactsInGroup(group);
+        app.contacts().addContactToGroup(group, contact);
+        var newRelated = app.hbm().getContactsInGroup(group);
+        Assertions.assertEquals(oldRelated.size() +1 , newRelated.size());
     }
 }
