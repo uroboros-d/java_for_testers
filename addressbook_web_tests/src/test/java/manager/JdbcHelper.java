@@ -66,5 +66,25 @@ public class JdbcHelper extends HelperBase {
         }
         return contacts;
     }
+
+    public void checkConsistency() {
+        try (
+                var conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
+                var statement = conn.createStatement();
+                //выполняем запрос
+                var result = statement.executeQuery(
+                        "SELECT * FROM `address_in_groups` ag\n" +
+                        "LEFT JOIN addressbook ab\n" +
+                        "ON ab.id = ag.id\n" +
+                        "WHERE ab.id IS NULL");
+        ) {
+            //если список результатов не пустой, то выбросить исключение
+            if (result.next()) {
+                throw new IllegalStateException("DB is corrupted");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 

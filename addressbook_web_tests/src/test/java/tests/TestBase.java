@@ -1,6 +1,7 @@
 package tests;
 
 import manager.ApplicationManager;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.File;
@@ -31,6 +32,11 @@ public class TestBase {
             //приложение запускать в браузере, указанном в browser, или в дефолтном firefox
             app.init(System.getProperty("browser", "firefox"),properties);
         }
+    }
+
+    @AfterEach
+    void  checkDatabaseConsistency() {
+        app.jdbc().checkConsistency();
     }
 
     //принимает путь к директоири, а возвращает путь к рандоному файлу
