@@ -11,6 +11,9 @@ import model.Group;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static tests.TestBase.randomFile;
 
@@ -61,34 +64,23 @@ public class Generator {
         }
     }
 
+    private Object generateData(Supplier<Object> dataSupplier){
+        return Stream.generate(dataSupplier).limit(count).collect(Collectors.toList());
+    }
+
+
     private Object generateGroups() {
-        //создаем список объектов типа Group
-        var result = new ArrayList<Group>();
-        //цикл до параметра count генерирует объекты Group и добавляет их в список
-        for (int i = 0; i < count; i++) {
-            result.add(new Group()
-                    .withName(CommonFunctions.randomString(i * 10))
-                    .withHeader(CommonFunctions.randomString(i * 10))
-                    .withFooter(CommonFunctions.randomString(i * 10))
-            );
-        }
-        //метод возвращает список сгенерированных объектов Group
-        return result;
+        return generateData(() -> new Group()
+                    .withName(CommonFunctions.randomString(10))
+                    .withHeader(CommonFunctions.randomString(10))
+                    .withFooter(CommonFunctions.randomString(10)));
     }
 
     private Object generateContacts() {
-        //создаем список объектов типа Contact
-        var result = new ArrayList<Contact>();
-        //цикл до параметра count генерирует объекты Contact и добавляет их в список
-        for (int i = 0; i < count; i++) {
-            result.add(new Contact()
-                    .withLastname(CommonFunctions.randomString(i * 10))
-                    .withFirstname(CommonFunctions.randomString(i * 10))
-                    .withPhoto(randomFile("src/test/resources/imagesJava/"))
-            );
-        }
-        //метод возвращает список сгенерированных объектов Contact
-        return result;
+        return generateData(() -> new Contact()
+                        .withLastname(CommonFunctions.randomString(10))
+                        .withFirstname(CommonFunctions.randomString(10))
+                        .withPhoto(randomFile("src/test/resources/imagesJava/")));
     }
 
 

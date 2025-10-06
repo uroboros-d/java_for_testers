@@ -17,4 +17,17 @@ public record Square(double side) {
     public double getPerimeter() {
         return this.side * 4;
     }
+
+
+    public static void printSquareArea(Square square) {      // для параметров нужно явное указание типа, var уже не подойдет
+        // static - означает, что ф-ция глобальная
+        System.out.println("Площадь квадрата со стороной " + square.side + " = " + getSquareArea(square.side));
+    }
+
+    private static double getSquareArea(double side) { // используем параметр с тем же именем, что в прежней ф-ции,
+        // но IDE понимает, что это разные переменные
+        return side * side;
+    }
+
+
 }

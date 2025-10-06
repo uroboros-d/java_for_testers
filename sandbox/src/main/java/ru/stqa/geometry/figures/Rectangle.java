@@ -34,4 +34,14 @@ public record Rectangle(double sideOne, double sideTwo) {
     public int hashCode() {
         return 1;
     }
+
+
+    public static void printRectangleArea(double firstSide, double secondSide) {
+        System.out.println("Площадь прямоугольника со сторонами " + firstSide + " и " + secondSide + " = " + getRectangleArea(firstSide, secondSide));
+    }
+
+    private static double getRectangleArea(double firstSide, double secondSide) {
+        return firstSide * secondSide;
+    }
+
 }

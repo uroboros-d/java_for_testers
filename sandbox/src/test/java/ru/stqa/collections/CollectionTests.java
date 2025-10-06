@@ -55,7 +55,5 @@ public class CollectionTests {
         list.set(0,"d");
         //проверить, что в элемент с индексом 0 вместо "а" теперь записан "d"
         Assertions.assertEquals("d", list.get(0));
-
-
     }
 }
