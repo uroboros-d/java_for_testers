@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class GroupCreationTests extends TestBase {
@@ -37,18 +39,18 @@ public class GroupCreationTests extends TestBase {
         return result;
     }
 
-    public static Stream<Group> singleRandomGroup() {
+    public static Stream<Group> randomGroups() {
         Supplier<Group> randomGroup = ( )->
             new Group()
                     .withName(CommonFunctions.randomString(10))
                     .withHeader(CommonFunctions.randomString(10))
                     .withFooter(CommonFunctions.randomString(10));
 
-        return Stream.generate(randomGroup).limit(3);
+        return Stream.generate(randomGroup).limit(1);
     }
 
     @ParameterizedTest
-    @MethodSource("singleRandomGroup")  //указана вспомогат ф-ция выше
+    @MethodSource("randomGroups")  //указана вспомогат ф-ция выше
     public void canCreateGroup(Group group) {
         //получаем старый список групп
         var oldGroups = app.hbm().getGroupList();
@@ -56,23 +58,17 @@ public class GroupCreationTests extends TestBase {
         app.groups().createGroup(group);
         //получаем новый список групп
         var newGroups = app.hbm().getGroupList();
-        //сортируем новую группу
-        Comparator<Group> compareById = (o1, o2) -> {
-            //compare вернет 1,если первый объект больше
-            //вернет -1,если первый объект меньше
-            //вернет 0,если объекты равны
-            //сравниваем идентификаторы групп, но они строки, поэтому парсим их в числа
-            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
-        };
-        newGroups.sort(compareById);
         var maxId = newGroups.get(newGroups.size() - 1).id();
+
+        //строим список групп, которые не встречались в старом
+        var extraGroups = newGroups.stream().filter(g -> ! oldGroups.contains(g)).toList();
+        var newId = extraGroups.get(0).id();
 
         //из старого списка строим ожидаемое значение
         var expectedList = new ArrayList<>(oldGroups);
         //в конец старого списка добавляется новая группа
         expectedList.add(group.withId(maxId));
-        expectedList.sort(compareById);
-        Assertions.assertEquals(newGroups, expectedList);
+        Assertions.assertEquals(Set.copyOf(newGroups), Set.copyOf(expectedList));
     }
 
 //    @ParameterizedTest

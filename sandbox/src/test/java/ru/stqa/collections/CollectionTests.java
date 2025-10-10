@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CollectionTests {
 
@@ -29,10 +31,10 @@ public class CollectionTests {
         //в скобках указано объекты какого типа будут храниться в списке
         //var list = new ArrayList<String>();
 
-        //проинициализировать список при создании
-//        var list = List.of("a","b","c");
-//        //список имеет размер 3
-//        Assertions.assertEquals(3, list.size());
+//        проинициализировать список при создании
+        var list = List.of("a","b","c", "a");
+        //список имеет размер 3
+        Assertions.assertEquals(4, list.size());
 
         //список по дефолту имеет размер 0
 //        Assertions.assertEquals(0, list.size());
@@ -43,17 +45,27 @@ public class CollectionTests {
 //        list.add("c");
 
         //в конструктор списка передать предзаполненный элементами список
-        var list = new ArrayList<>(List.of("a","b","c"));
+        //var list = new ArrayList<>(List.of("a","b","c"));
         //в треугольных скобках можно не указывать тип String, т.к. и так ясно,
         // что делаем копию списка строк
 
         //проверить,что список содержит добавленные элементы
         //в списках индексация тоже начинается с 0
-        Assertions.assertEquals("a", list.get(0));
+        //Assertions.assertEquals("a", list.get(0));
 
         //установить в элемент 0 значение "d"
-        list.set(0,"d");
+        //list.set(0,"d");
         //проверить, что в элемент с индексом 0 вместо "а" теперь записан "d"
-        Assertions.assertEquals("d", list.get(0));
+        //Assertions.assertEquals("d", list.get(0));
+    }
+
+    @Test
+    void setTests() {
+        //var set = Set.copyOf(List.of("a","b","c", "a"));
+        var set = new HashSet<>(List.of("a","b","c", "a"));
+       //проверка размера
+        Assertions.assertEquals(3, set.size());
+       var element =  set.stream().findFirst().get();
+       set.add("d");
     }
 }

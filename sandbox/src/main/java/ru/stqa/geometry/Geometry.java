@@ -15,7 +15,7 @@ public class Geometry {
         Supplier<Square> randomSquare = () -> new Square(new Random().nextDouble(100));
         var squares = Stream.generate(randomSquare).limit(5);
 
-        squares.peek(Square::printArea).forEach(Square::printPerimeter);
+        //squares.peek(Square::printArea).forEach(Square::printPerimeter);
 
 
 //       for (Square square: squares){
