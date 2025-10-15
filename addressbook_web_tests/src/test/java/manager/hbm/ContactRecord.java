@@ -28,6 +28,7 @@ public class ContactRecord {
     public String email2 = "";
     public String email3 = "";
     public String homepage = "";
+    public String phone2 = "";
 
     public ContactRecord() {}
 

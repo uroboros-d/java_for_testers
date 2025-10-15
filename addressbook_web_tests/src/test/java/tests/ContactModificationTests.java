@@ -24,9 +24,9 @@ public class ContactModificationTests  extends TestBase {
                             "address",
                             "mobilePhone",
                             "email",
-                            ""
+                            "",
 //порядок полей в коде должен быть как порядок полей в табл бд
-                    )
+                            "", "", "")
             );
         }
         var oldContacts = app.hbm().getContactList();
@@ -78,8 +78,8 @@ public class ContactModificationTests  extends TestBase {
                     "address",
                     "mobilePhone",
                     "email",
-                    ""
-            ));
+                    "",
+                    "", "", ""));
         }
         var contact = app.hbm().getContactList().get(0);
 

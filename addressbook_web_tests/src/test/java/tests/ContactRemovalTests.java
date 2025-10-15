@@ -22,9 +22,9 @@ public class ContactRemovalTests extends TestBase {
                     "address",
                     "mobilePhone",
                     "email",
-                    "src/test/resources/imagesJava/avatar.jpg"
+                    "src/test/resources/imagesJava/avatar.jpg",
 //порядок полей в коде должен быть как порядок полей в табл бд
-                    )
+                            "", "", "")
             );
         }
         //ф-ция возвращает список объектов типа Contact

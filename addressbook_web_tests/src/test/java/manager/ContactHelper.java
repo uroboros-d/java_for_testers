@@ -170,4 +170,10 @@ public class ContactHelper extends HelperBase {
         selectGroupInHomePage(group);
         submitContactAdding();
     }
+
+    public String getPhones(Contact contact) {
+        return manager.driver.findElement(By.xpath(
+                String.format("//input[@id='%s']/../../td[6]", contact.id())
+        )).getText();
+    }
 }
