@@ -6,10 +6,10 @@ public record Contact(String id,
                       String lastname,
                       String address,
                       String email,
+                      String mobile,
                       String photo,
                       String company,
                       String home,
-                      String mobile,
                       String work,
                       String phone2) {
 

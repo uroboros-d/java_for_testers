@@ -87,7 +87,7 @@ public class HibernateHelper extends HelperBase {
     private static Contact convertContact(ContactRecord record) {
         return new Contact()
                 .withId("" + record.id)
-                .withFirstname(record.lastname)
+                .withFirstname(record.firstname)
                 .withMiddlename(record.middlename)
                 .withLastname(record.lastname)
                 .withAddress(record.address)
